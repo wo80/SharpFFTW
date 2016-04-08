@@ -39,8 +39,10 @@
   <ItemGroup>
     <Compile Include="Double\ComplexArray.cs" />
     <Compile Include="Direction.cs" />
+    <Compile Include="Double\RealArray.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Single\Complex32.cs" />
+    <Compile Include="Single\RealArray.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="Double\NativeMethods.cs">
       <SubType>Code</SubType>
