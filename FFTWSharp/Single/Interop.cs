@@ -114,7 +114,7 @@ namespace FFTWSharp.Single
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr plan_dft_1d(int n, IntPtr input, IntPtr output, 
-			fftw_direction direction, fftw_flags flags);
+			Direction direction, Options flags);
 
 		/// <summary>
 		/// Creates a plan for a 2-dimensional complex-to-complex DFT
@@ -130,7 +130,7 @@ namespace FFTWSharp.Single
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr plan_dft_2d(int nx, int ny, IntPtr input, IntPtr output, 
-			fftw_direction direction, fftw_flags flags);
+			Direction direction, Options flags);
 
 		/// <summary>
 		/// Creates a plan for a 3-dimensional complex-to-complex DFT
@@ -147,7 +147,7 @@ namespace FFTWSharp.Single
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr plan_dft_3d(int nx, int ny, int nz, IntPtr input, IntPtr output, 
-			fftw_direction direction, fftw_flags flags);
+			Direction direction, Options flags);
 
 		/// <summary>
 		/// Creates a plan for an n-dimensional complex-to-complex DFT
@@ -163,7 +163,7 @@ namespace FFTWSharp.Single
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr plan_dft(int rank, int[] n, IntPtr input, IntPtr output, 
-			fftw_direction direction, fftw_flags flags);
+			Direction direction, Options flags);
 
 		/// <summary>
 		/// Creates a plan for a 1-dimensional real-to-complex DFT
@@ -176,7 +176,7 @@ namespace FFTWSharp.Single
 			 EntryPoint = "fftwf_plan_dft_r2c_1d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_r2c_1d(int n, IntPtr input, IntPtr output, fftw_flags flags);
+        public static extern IntPtr plan_dft_r2c_1d(int n, IntPtr input, IntPtr output, Options flags);
 
 		/// <summary>
 		/// Creates a plan for a 2-dimensional real-to-complex DFT
@@ -190,7 +190,7 @@ namespace FFTWSharp.Single
 			 EntryPoint = "fftwf_plan_dft_r2c_2d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_r2c_2d(int nx, int ny, IntPtr input, IntPtr output, fftw_flags flags);
+        public static extern IntPtr plan_dft_r2c_2d(int nx, int ny, IntPtr input, IntPtr output, Options flags);
 
 		/// <summary>
 		/// Creates a plan for a 3-dimensional real-to-complex DFT
@@ -205,7 +205,7 @@ namespace FFTWSharp.Single
 			 EntryPoint = "fftwf_plan_dft_r2c_3d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_r2c_3d(int nx, int ny, int nz, IntPtr input, IntPtr output, fftw_flags flags);
+        public static extern IntPtr plan_dft_r2c_3d(int nx, int ny, int nz, IntPtr input, IntPtr output, Options flags);
 
 		/// <summary>
 		/// Creates a plan for an n-dimensional real-to-complex DFT
@@ -219,7 +219,7 @@ namespace FFTWSharp.Single
 			 EntryPoint = "fftwf_plan_dft_r2c",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_r2c(int rank, int[] n, IntPtr input, IntPtr output, fftw_flags flags);
+        public static extern IntPtr plan_dft_r2c(int rank, int[] n, IntPtr input, IntPtr output, Options flags);
 
 		/// <summary>
 		/// Creates a plan for a 1-dimensional complex-to-real DFT
@@ -232,7 +232,7 @@ namespace FFTWSharp.Single
 			 EntryPoint = "fftwf_plan_dft_c2r_1d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_c2r_1d(int n, IntPtr input, IntPtr output, fftw_flags flags);
+        public static extern IntPtr plan_dft_c2r_1d(int n, IntPtr input, IntPtr output, Options flags);
 
 		/// <summary>
 		/// Creates a plan for a 2-dimensional complex-to-real DFT
@@ -246,7 +246,7 @@ namespace FFTWSharp.Single
 			 EntryPoint = "fftwf_plan_dft_c2r_2d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_c2r_2d(int nx, int ny, IntPtr input, IntPtr output, fftw_flags flags);
+        public static extern IntPtr plan_dft_c2r_2d(int nx, int ny, IntPtr input, IntPtr output, Options flags);
 
 		/// <summary>
 		/// Creates a plan for a 3-dimensional complex-to-real DFT
@@ -261,7 +261,7 @@ namespace FFTWSharp.Single
 			 EntryPoint = "fftwf_plan_dft_c2r_3d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_c2r_3d(int nx, int ny, int nz, IntPtr input, IntPtr output, fftw_flags flags);
+        public static extern IntPtr plan_dft_c2r_3d(int nx, int ny, int nz, IntPtr input, IntPtr output, Options flags);
 
 		/// <summary>
 		/// Creates a plan for an n-dimensional complex-to-real DFT
@@ -275,7 +275,7 @@ namespace FFTWSharp.Single
 			 EntryPoint = "fftwf_plan_dft_c2r",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_c2r(int rank, int[] n, IntPtr input, IntPtr output, fftw_flags flags);
+        public static extern IntPtr plan_dft_c2r(int rank, int[] n, IntPtr input, IntPtr output, Options flags);
 
 		/// <summary>
 		/// Creates a plan for a 1-dimensional real-to-real DFT
@@ -289,7 +289,7 @@ namespace FFTWSharp.Single
 			 EntryPoint = "fftwf_plan_r2r_1d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_r2r_1d(int n, IntPtr input, IntPtr output, fftw_kind kind, fftw_flags flags);
+        public static extern IntPtr plan_r2r_1d(int n, IntPtr input, IntPtr output, Transform kind, Options flags);
 
 		/// <summary>
 		/// Creates a plan for a 2-dimensional real-to-real DFT
@@ -306,7 +306,7 @@ namespace FFTWSharp.Single
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr plan_r2r_2d(int nx, int ny, IntPtr input, IntPtr output, 
-			fftw_kind kindx, fftw_kind kindy, fftw_flags flags);
+			Transform kindx, Transform kindy, Options flags);
 		
 		/// <summary>
 		/// Creates a plan for a 3-dimensional real-to-real DFT
@@ -325,7 +325,7 @@ namespace FFTWSharp.Single
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr plan_r2r_3d(int nx, int ny, int nz, IntPtr input, IntPtr output, 
-			fftw_kind kindx, fftw_kind kindy, fftw_kind kindz, fftw_flags flags);
+			Transform kindx, Transform kindy, Transform kindz, Options flags);
 
 		/// <summary>
 		/// Creates a plan for an n-dimensional real-to-real DFT
@@ -341,7 +341,7 @@ namespace FFTWSharp.Single
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr plan_r2r(int rank, int[] n, IntPtr input, IntPtr output, 
-			fftw_kind[] kind, fftw_flags flags);
+			Transform[] kind, Options flags);
 
 		/// <summary>
 		/// Returns (approximately) the number of flops used by a certain plan

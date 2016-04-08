@@ -52,22 +52,22 @@ namespace FFTWSharp_test
             hdout = GCHandle.Alloc(dout, GCHandleType.Pinned);
 
             // create a few test transforms
-            fplan1 = fftwf.dft_1d(n, pin, pout, fftw_direction.Forward, fftw_flags.Estimate);
+            fplan1 = fftwf.dft_1d(n, pin, pout, Direction.Forward, Options.Estimate);
             fplan2 = fftwf.dft_1d(n, hin.AddrOfPinnedObject(), hout.AddrOfPinnedObject(),
-                fftw_direction.Forward, fftw_flags.Estimate);
+                Direction.Forward, Options.Estimate);
             fplan3 = fftwf.dft_1d(n, hout.AddrOfPinnedObject(), pin,
-                fftw_direction.Backward, fftw_flags.Measure);
+                Direction.Backward, Options.Measure);
             // end with transforming back to original array
             fplan4 = fftwf.dft_1d(n, hout.AddrOfPinnedObject(), hin.AddrOfPinnedObject(),
-                fftw_direction.Backward, fftw_flags.Estimate);
+                Direction.Backward, Options.Estimate);
             // and check a quick one with doubles, just to be sure
             fplan5 = fftw.dft_1d(n, hdin.AddrOfPinnedObject(), hdout.AddrOfPinnedObject(),
-                fftw_direction.Backward, fftw_flags.Measure);
+                Direction.Backward, Options.Measure);
 
             // create a managed plan as well
             min = new fftw_complexarray(din);
             mout = new fftw_complexarray(dout);
-            mplan = fftw_plan.dft_1d(n, min, mout, fftw_direction.Forward, fftw_flags.Estimate);
+            mplan = fftw_plan.dft_1d(n, min, mout, Direction.Forward, Options.Estimate);
 
             // fill our arrays with an arbitrary complex sawtooth-like signal
             for (int i = 0; i < n * 2; i++)

@@ -27,7 +27,7 @@ namespace FFTWSharp.Single
     /// <summary>
     /// Creates, stores, and destroys fftw plans
     /// </summary>
-    public class fftwf_plan
+    public class Plan
     {
         static Mutex FFTW_Lock = new Mutex();
 
@@ -40,47 +40,47 @@ namespace FFTWSharp.Single
             fftwf.execute(handle);
         }
 
-        ~fftwf_plan()
+        ~Plan()
         {
             fftwf.destroy_plan(handle);
         }
 
         #region Plan Creation
         //Complex<->Complex transforms
-        public static fftwf_plan dft_1d(int n, fftwf_complexarray input, fftwf_complexarray output, fftw_direction direction, fftw_flags flags)
+        public static Plan dft_1d(int n, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_dft_1d(n, input.Handle, output.Handle, direction, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
         }
 
-        public static fftwf_plan dft_2d(int nx, int ny, fftwf_complexarray input, fftwf_complexarray output, fftw_direction direction, fftw_flags flags)
+        public static Plan dft_2d(int nx, int ny, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_dft_2d(nx, ny, input.Handle, output.Handle, direction, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
         }
 
-        public static fftwf_plan dft_3d(int nx, int ny, int nz, fftwf_complexarray input, fftwf_complexarray output, fftw_direction direction, fftw_flags flags)
+        public static Plan dft_3d(int nx, int ny, int nz, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_dft_3d(nx, ny, nz, input.Handle, output.Handle, direction, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
         }
 
-        public static fftwf_plan dft(int rank, int[] n, fftwf_complexarray input, fftwf_complexarray output, fftw_direction direction, fftw_flags flags)
+        public static Plan dft(int rank, int[] n, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_dft(rank, n, input.Handle, output.Handle, direction, flags);
             FFTW_Lock.ReleaseMutex();
 
@@ -88,40 +88,40 @@ namespace FFTWSharp.Single
         }
 
         //Real->Complex transforms
-        public static fftwf_plan dft_r2c_1d(int n, fftwf_complexarray input, fftwf_complexarray output, fftw_flags flags)
+        public static Plan dft_r2c_1d(int n, ComplexArray input, ComplexArray output, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_dft_r2c_1d(n, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
         }
 
-        public static fftwf_plan dft_r2c_2d(int nx, int ny, fftwf_complexarray input, fftwf_complexarray output, fftw_flags flags)
+        public static Plan dft_r2c_2d(int nx, int ny, ComplexArray input, ComplexArray output, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_dft_r2c_2d(nx, ny, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
         }
 
-        public static fftwf_plan dft_r2c_3d(int nx, int ny, int nz, fftwf_complexarray input, fftwf_complexarray output, fftw_flags flags)
+        public static Plan dft_r2c_3d(int nx, int ny, int nz, ComplexArray input, ComplexArray output, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_dft_r2c_3d(nx, ny, nz, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
         }
 
-        public static fftwf_plan dft_r2c(int rank, int[] n, fftwf_complexarray input, fftwf_complexarray output, fftw_flags flags)
+        public static Plan dft_r2c(int rank, int[] n, ComplexArray input, ComplexArray output, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_dft_r2c(rank, n, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
@@ -129,40 +129,40 @@ namespace FFTWSharp.Single
         }
 
         //Complex->Real
-        public static fftwf_plan dft_c2r_1d(int n, fftwf_complexarray input, fftwf_complexarray output, fftw_direction direction, fftw_flags flags)
+        public static Plan dft_c2r_1d(int n, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_dft_c2r_1d(n, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
         }
 
-        public static fftwf_plan dft_c2r_2d(int nx, int ny, fftwf_complexarray input, fftwf_complexarray output, fftw_direction direction, fftw_flags flags)
+        public static Plan dft_c2r_2d(int nx, int ny, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_dft_c2r_2d(nx, ny, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
         }
 
-        public static fftwf_plan dft_c2r_3d(int nx, int ny, int nz, fftwf_complexarray input, fftwf_complexarray output, fftw_direction direction, fftw_flags flags)
+        public static Plan dft_c2r_3d(int nx, int ny, int nz, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_dft_c2r_3d(nx, ny, nz, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
         }
 
-        public static fftwf_plan dft_c2r(int rank, int[] n, fftwf_complexarray input, fftwf_complexarray output, fftw_direction direction, fftw_flags flags)
+        public static Plan dft_c2r(int rank, int[] n, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_dft_c2r(rank, n, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
@@ -170,31 +170,31 @@ namespace FFTWSharp.Single
         }
 
         //Real<->Real
-        public static fftwf_plan r2r_1d(int n, fftwf_complexarray input, fftwf_complexarray output, fftw_kind kind, fftw_flags flags)
+        public static Plan r2r_1d(int n, ComplexArray input, ComplexArray output, Transform kind, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_r2r_1d(n, input.Handle, output.Handle, kind, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
         }
 
-        public static fftwf_plan r2r_2d(int nx, int ny, fftwf_complexarray input, fftwf_complexarray output, fftw_kind kindx, fftw_kind kindy, fftw_flags flags)
+        public static Plan r2r_2d(int nx, int ny, ComplexArray input, ComplexArray output, Transform kindx, Transform kindy, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_r2r_2d(nx, ny, input.Handle, output.Handle, kindx, kindy, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
         }
 
-        public static fftwf_plan r2r_3d(int nx, int ny, int nz, fftwf_complexarray input, fftwf_complexarray output,
-            fftw_kind kindx, fftw_kind kindy, fftw_kind kindz, fftw_flags flags)
+        public static Plan r2r_3d(int nx, int ny, int nz, ComplexArray input, ComplexArray output,
+            Transform kindx, Transform kindy, Transform kindz, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_r2r_3d(nx, ny, nz, input.Handle, output.Handle,
                 kindx, kindy, kindz, flags);
             FFTW_Lock.ReleaseMutex();
@@ -202,11 +202,11 @@ namespace FFTWSharp.Single
             return p;
         }
 
-        public static fftwf_plan r2r(int rank, int[] n, fftwf_complexarray input, fftwf_complexarray output,
-            fftw_kind[] kind, fftw_flags flags)
+        public static Plan r2r(int rank, int[] n, ComplexArray input, ComplexArray output,
+            Transform[] kind, Options flags)
         {
             FFTW_Lock.WaitOne();
-            fftwf_plan p = new fftwf_plan();
+            Plan p = new Plan();
             p.handle = fftwf.plan_r2r(rank, n, input.Handle, output.Handle,
                 kind, flags);
             FFTW_Lock.ReleaseMutex();

@@ -7,7 +7,7 @@ namespace FFTWSharp
     /// FFTW planner flags
     /// </summary>
     [Flags]
-    public enum fftw_flags : uint
+    public enum Options : uint
     {
         /// <summary>
         /// Tells FFTW to find an optimized plan by actually computing several FFTs and measuring their execution time. 

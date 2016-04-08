@@ -4,7 +4,7 @@ namespace FFTWSharp
     /// <summary>
     /// Defines direction of operation
     /// </summary>
-    public enum fftw_direction : int
+    public enum Direction : int
     {
         /// <summary>
         /// Computes a regular DFT

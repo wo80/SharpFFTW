@@ -4,7 +4,7 @@ namespace FFTWSharp
     /// <summary>
     /// Kinds of real-to-real transforms
     /// </summary>
-    public enum fftw_kind : uint
+    public enum Transform : uint
     {
         R2HC = 0,
         HC2R = 1,
