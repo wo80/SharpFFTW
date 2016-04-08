@@ -47,7 +47,7 @@ namespace FFTWSharp.Single
         /// Creates an FFTW-compatible array from array of Complex numbers
         /// </summary>
         /// <param name="data">Array of Complex numbers</param>
-        public ComplexArray(Complex[] data)
+        public ComplexArray(Complex32[] data)
         {
             this.length = data.Length;
             this.handle = NativeMethods.malloc(this.length * 16);
@@ -69,7 +69,7 @@ namespace FFTWSharp.Single
         /// <summary>
         /// Set the data to an array of complex numbers
         /// </summary>
-        public void SetData(Complex[] data)
+        public void SetData(Complex32[] data)
         {
             if (data.Length != this.length)
                 throw new ArgumentException("Array length mismatch!");
@@ -97,15 +97,15 @@ namespace FFTWSharp.Single
         /// <summary>
         /// Get the data out as Complex numbers
         /// </summary>
-        public Complex[] GetData_Complex()
+        public Complex32[] GetData_Complex()
         {
             float[] dataf = new float[length * 2];
             Marshal.Copy(handle, dataf, 0, length * 2);
-            Complex[] data = new Complex[length];
+            Complex32[] data = new Complex32[length];
 
             for (int i = 0; i < length; i++)
             {
-                data[i] = new Complex(dataf[2 * i], dataf[2 * i + 1]);
+                data[i] = new Complex32(dataf[2 * i], dataf[2 * i + 1]);
             }
 
             return data;
