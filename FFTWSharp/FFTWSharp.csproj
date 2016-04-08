@@ -37,6 +37,9 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="fftw_direction.cs" />
+    <Compile Include="fftw_flags.cs" />
+    <Compile Include="fftw_kind.cs" />
     <Compile Include="Interop.cs">
       <SubType>Code</SubType>
     </Compile>
