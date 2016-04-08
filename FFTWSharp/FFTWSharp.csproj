@@ -8,8 +8,8 @@
     <ProjectGuid>{BEA875B8-E28A-49C5-8E7E-6512DA65F7E1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>fftwlib</RootNamespace>
-    <AssemblyName>fftwlib</AssemblyName>
+    <RootNamespace>FFTWSharp</RootNamespace>
+    <AssemblyName>FFTWSharp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
