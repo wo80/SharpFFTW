@@ -23,8 +23,6 @@ using System.Runtime.InteropServices;
 
 namespace FFTWSharp.Single
 {
-	// FFTW Interop Classes
-	#region Single Precision
 	/// <summary>
 	/// Contains the Basic Interface FFTW functions for single-precision (float) operations
 	/// </summary>
@@ -390,5 +388,4 @@ namespace FFTWSharp.Single
              CallingConvention = CallingConvention.Cdecl)]
         public static extern void import_wisdom_from_filename(string filename);
     }
-	#endregion
 }
