@@ -50,7 +50,7 @@ namespace FFTWSharp.Single
         public fftwf_complexarray(Complex[] data)
         {
             this.length = data.Length;
-            this.handle = fftw.malloc(this.length * 16);
+            this.handle = fftwf.malloc(this.length * 16);
 
             this.SetData(data);
         }
