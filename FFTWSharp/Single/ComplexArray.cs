@@ -1,147 +1,197 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Runtime.InteropServices;
-using System.Text;
-
+﻿
 namespace FFTWSharp.Single
 {
-    /// <summary>
-    /// To simplify FFTW memory management
-    /// </summary>
-    public abstract class ComplexArray
-    {
-        private IntPtr handle;
-        public IntPtr Handle
-        { get { return handle; } }
+    using System;
+    using System.Runtime.InteropServices;
 
-        // The logical length of the array (# of complex numbers, not elements)
-        private int length;
-        public int Length
-        { get { return length; } }
+    /// <summary>
+    /// Complex array pointing to the native FFTW memory.
+    /// </summary>
+    public class ComplexArray
+    {
+        private const int SIZE = 8; // sizeof(Complex32)
 
         /// <summary>
-        /// Creates a new array of complex numbers
+        /// Gets the handle to the native memory.
         /// </summary>
-        /// <param name="length">Logical length of the array</param>
+        public IntPtr Handle { get; private set; }
+
+        /// <summary>
+        /// Gets the logical size of this array.
+        /// </summary>
+        public int Length { get; private set; }
+
+        // Temporary storage used for copying between native and managed.
+        private float[] storage;
+
+        /// <summary>
+        /// Creates a new array of complex numbers.
+        /// </summary>
+        /// <param name="length">Logical length of the array.</param>
         public ComplexArray(int length)
         {
-            this.length = length;
-            this.handle = NativeMethods.malloc(this.length * 8);
+            this.Length = length;
+            this.Handle = NativeMethods.malloc(this.Length * SIZE);
         }
 
         /// <summary>
-        /// Creates an FFTW-compatible array from array of floats, initializes to single precision only
+        /// Creates an FFTW-compatible array from array of floats.
         /// </summary>
-        /// <param name="data">Array of floats, alternating real and imaginary</param>
+        /// <param name="data">Array of floats, alternating real and imaginary.</param>
         public ComplexArray(float[] data)
+            : this(data.Length / 2)
         {
-            this.length = data.Length / 2;
-            this.handle = NativeMethods.malloc(this.length * 8);
-
-            this.SetData(data);
+            this.Set(data);
         }
 
         /// <summary>
-        /// Creates an FFTW-compatible array from array of Complex numbers
+        /// Creates an FFTW-compatible array from array of complex numbers.
         /// </summary>
-        /// <param name="data">Array of Complex numbers</param>
+        /// <param name="data">Array of complex numbers.</param>
         public ComplexArray(Complex32[] data)
+            : this(data.Length)
         {
-            this.length = data.Length;
-            this.handle = NativeMethods.malloc(this.length * 16);
-
-            this.SetData(data);
-        }
-
-        /// <summary>
-        /// Set the data to an array of complex numbers
-        /// </summary>
-        public void SetData(float[] data)
-        {
-            if (data.Length / 2 != this.length)
-                throw new ArgumentException("Array length mismatch!");
-
-            Marshal.Copy(data, 0, handle, this.length * 2);
-        }
-
-        /// <summary>
-        /// Set the data to an array of complex numbers
-        /// </summary>
-        public void SetData(Complex32[] data)
-        {
-            if (data.Length != this.length)
-                throw new ArgumentException("Array length mismatch!");
-
-            float[] data_in = new float[data.Length * 2];
-            for (int i = 0; i < data.Length; i++)
-            {
-                data_in[2 * i] = (float)data[i].Real;
-                data_in[2 * i + 1] = (float)data[i].Imaginary;
-            }
-
-            Marshal.Copy(data_in, 0, handle, this.length * 2);
-        }
-
-        /// <summary>
-        /// Set the data to zeros
-        /// </summary>
-        public void SetZeroData()
-        {
-            float[] data_in = new float[this.Length * 2];
-            // C# arrays always initialized to 0
-            Marshal.Copy(data_in, 0, handle, this.length * 2);
-        }
-
-        /// <summary>
-        /// Get the data out as Complex numbers
-        /// </summary>
-        public Complex32[] GetData_Complex()
-        {
-            float[] dataf = new float[length * 2];
-            Marshal.Copy(handle, dataf, 0, length * 2);
-            Complex32[] data = new Complex32[length];
-
-            for (int i = 0; i < length; i++)
-            {
-                data[i] = new Complex32(dataf[2 * i], dataf[2 * i + 1]);
-            }
-
-            return data;
-        }
-
-        /// <summary>
-        /// Get the real elements out
-        /// </summary>
-        public float[] GetData_Real()
-        {
-            float[] dataf = new float[length * 2];
-            Marshal.Copy(handle, dataf, 0, length * 2);
-            float[] data = new float[length];
-
-            for (int i = 0; i < length; i++)
-            {
-                data[i] = dataf[2 * i];
-            }
-
-            return data;
-        }
-
-        /// <summary>
-        /// Get the full array of floats out (alternating real and imaginary)
-        /// </summary>
-        public float[] GetData_float()
-        {
-            float[] dataf = new float[length * 2];
-            Marshal.Copy(handle, dataf, 0, length * 2);
-
-            return dataf;
+            this.Set(data);
         }
 
         ~ComplexArray()
         {
-            NativeMethods.free(handle);
+            NativeMethods.free(Handle);
+        }
+
+        /// <summary>
+        /// Set the data to an array of complex numbers.
+        /// </summary>
+        /// <param name="source">Array of floats, alternating real and imaginary.</param>
+        public void Set(float[] source)
+        {
+            int size = 2 * Length;
+
+            if (source.Length != size)
+            {
+                throw new ArgumentException("Array length mismatch.");
+            }
+
+            Marshal.Copy(source, 0, Handle, size);
+        }
+
+        /// <summary>
+        /// Set the data to an array of complex numbers.
+        /// </summary>
+        /// <param name="source">Array of complex numbers.</param>
+        public void Set(Complex32[] source)
+        {
+            if (source.Length != this.Length)
+            {
+                throw new ArgumentException("Array length mismatch.");
+            }
+
+            var temp = GetTemporaryStorage();
+
+            for (int i = 0; i < source.Length; i++)
+            {
+                temp[2 * i] = source[i].Real;
+                temp[2 * i + 1] = source[i].Imaginary;
+            }
+
+            Marshal.Copy(temp, 0, Handle, this.Length * 2);
+        }
+
+        /// <summary>
+        /// Set the data to zeros.
+        /// </summary>
+        public void Clear()
+        {
+            var temp = GetTemporaryStorage();
+
+            Array.Clear(temp, 0, temp.Length);
+
+            Marshal.Copy(temp, 0, Handle, this.Length * 2);
+        }
+
+        /// <summary>
+        /// Copy data to array of complex number.
+        /// </summary>
+        /// <param name="target">Array of complex numbers.</param>
+        public void CopyTo(Complex32[] target)
+        {
+            if (target.Length != this.Length)
+            {
+                throw new Exception();
+            }
+
+            var temp = GetTemporaryStorage();
+
+            CopyTo(temp);
+
+            for (int i = 0; i < Length; i++)
+            {
+                target[i] = new Complex32(temp[2 * i], temp[2 * i + 1]);
+            }
+        }
+
+        /// <summary>
+        /// Copy data to array of floats.
+        /// </summary>
+        /// <param name="target">Array of floats, alternating real and imaginary.</param>
+        public void CopyTo(float[] target)
+        {
+            int size = 2 * Length;
+
+            if (target.Length != size)
+            {
+                throw new Exception();
+            }
+
+            Marshal.Copy(Handle, target, 0, size);
+        }
+
+        /// <summary>
+        /// Copy data to array of floats.
+        /// </summary>
+        /// <param name="data">Array of floats, alternating real and imaginary.</param>
+        /// <param name="real">If true, only real part is considered.</param>
+        public void CopyTo(float[] target, bool real)
+        {
+            if (!real)
+            {
+                CopyTo(target);
+                return;
+            }
+
+            var temp = GetTemporaryStorage();
+
+            CopyTo(temp);
+
+            for (int i = 0; i < Length; i++)
+            {
+                target[i] = temp[2 * i];
+            }
+        }
+
+        /// <summary>
+        /// Get data as floats.
+        /// </summary>
+        /// <returns>Array of floats, alternating real and imaginary.</returns>
+        public float[] ToArray()
+        {
+            int size = 2 * Length;
+
+            float[] data = new float[size];
+
+            Marshal.Copy(Handle, data, 0, size);
+
+            return data;
+        }
+
+        private float[] GetTemporaryStorage()
+        {
+            if (storage == null)
+            {
+                storage = new float[2 * Length];
+            }
+
+            return storage;
         }
     }
 }

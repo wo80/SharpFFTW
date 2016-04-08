@@ -1,145 +1,198 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Runtime.InteropServices;
-using System.Text;
-
+﻿
 namespace FFTWSharp.Double
 {
+    using System;
+    using System.Numerics;
+    using System.Runtime.InteropServices;
+
     /// <summary>
-    /// So FFTW can manage its own memory nicely
+    /// Complex array pointing to the native FFTW memory.
     /// </summary>
     public class ComplexArray
     {
-        private IntPtr handle;
-        public IntPtr Handle
-        { get { return handle; } }
-
-        private int length;
-        public int Length
-        { get { return length; } }
+        private const int SIZE = 16; // sizeof(Complex)
 
         /// <summary>
-        /// Creates a new array of complex numbers
+        /// Gets the handle to the native memory.
         /// </summary>
-        /// <param name="length">Logical length of the array</param>
+        public IntPtr Handle { get; private set; }
+
+        /// <summary>
+        /// Gets the logical size of this array.
+        /// </summary>
+        public int Length { get; private set; }
+
+        // Temporary storage used for copying between native and managed.
+        private double[] storage;
+
+        /// <summary>
+        /// Creates a new array of complex numbers.
+        /// </summary>
+        /// <param name="length">Logical length of the array.</param>
         public ComplexArray(int length)
         {
-            this.length = length;
-            this.handle = NativeMethods.malloc(this.length * 16);
+            this.Length = length;
+            this.Handle = NativeMethods.malloc(this.Length * SIZE);
         }
 
         /// <summary>
-        /// Creates an FFTW-compatible array from array of doubles
+        /// Creates an FFTW-compatible array from array of doubles.
         /// </summary>
-        /// <param name="data">Array of doubles, alternating real and imaginary</param>
+        /// <param name="data">Array of doubles, alternating real and imaginary.</param>
         public ComplexArray(double[] data)
+            : this(data.Length / 2)
         {
-            this.length = data.Length / 2;
-            this.handle = NativeMethods.malloc(this.length * 16);
-
-            this.SetData(data);
+            this.Set(data);
         }
 
         /// <summary>
-        /// Creates an FFTW-compatible array from array of Complex numbers
+        /// Creates an FFTW-compatible array from array of complex numbers.
         /// </summary>
-        /// <param name="data">Array of Complex numbers</param>
+        /// <param name="data">Array of complex numbers.</param>
         public ComplexArray(Complex[] data)
+            : this(data.Length)
         {
-            this.length = data.Length;
-            this.handle = NativeMethods.malloc(this.length * 16);
+            this.Set(data);
+        }
 
-            this.SetData(data);
+        ~ComplexArray()
+        {
+            NativeMethods.free(Handle);
         }
 
         /// <summary>
-        /// Set the data to an array of complex numbers
+        /// Set the data to an array of complex numbers.
         /// </summary>
-        public void SetData(double[] data)
+        /// <param name="source">Array of doubles, alternating real and imaginary.</param>
+        public void Set(double[] source)
         {
-            if (data.Length / 2 != this.length)
-                throw new ArgumentException("Array length mismatch!");
+            int size = 2 * Length;
 
-            Marshal.Copy(data, 0, handle, this.length * 2);
-        }
-
-        /// <summary>
-        /// Set the data to an array of complex numbers
-        /// </summary>
-        public void SetData(Complex[] data)
-        {
-            if (data.Length != this.length)
-                throw new ArgumentException("Array length mismatch!");
-
-            double[] data_in = new double[data.Length * 2];
-            for (int i = 0; i < data.Length; i++)
+            if (source.Length != size)
             {
-                data_in[2 * i] = data[i].Real;
-                data_in[2 * i + 1] = data[i].Imaginary;
+                throw new ArgumentException("Array length mismatch.");
             }
 
-            Marshal.Copy(data_in, 0, handle, this.length * 2);
+            Marshal.Copy(source, 0, Handle, size);
+        }
+
+        /// <summary>
+        /// Set the data to an array of complex numbers.
+        /// </summary>
+        /// <param name="source">Array of complex numbers.</param>
+        public void Set(Complex[] source)
+        {
+            if (source.Length != this.Length)
+            {
+                throw new ArgumentException("Array length mismatch.");
+            }
+
+            var temp = GetTemporaryStorage();
+
+            for (int i = 0; i < source.Length; i++)
+            {
+                temp[2 * i] = source[i].Real;
+                temp[2 * i + 1] = source[i].Imaginary;
+            }
+
+            Marshal.Copy(temp, 0, Handle, this.Length * 2);
         }
 
         /// <summary>
         /// Set the data to zeros.
         /// </summary>
-        public void SetZeroData()
+        public void Clear()
         {
-            double[] data_in = new double[this.Length * 2];
-            // C# arrays always initialized to 0
-            Marshal.Copy(data_in, 0, handle, this.length * 2);
+            var temp = GetTemporaryStorage();
+
+            Array.Clear(temp, 0, temp.Length);
+
+            Marshal.Copy(temp, 0, Handle, this.Length * 2);
         }
 
         /// <summary>
-        /// Get the data out
+        /// Copy data to array of complex number.
         /// </summary>
-        /// <returns></returns>
-        public Complex[] GetData_Complex()
+        /// <param name="target">Array of complex numbers.</param>
+        public void CopyTo(Complex[] target)
         {
-            double[] datad = new double[length * 2];
-            Marshal.Copy(handle, datad, 0, length * 2);
-            Complex[] data = new Complex[length];
-
-            for (int i = 0; i < length; i++)
+            if (target.Length != this.Length)
             {
-                data[i] = new Complex(datad[2 * i], datad[2 * i + 1]);
+                throw new Exception();
             }
+
+            var temp = GetTemporaryStorage();
+
+            CopyTo(temp);
+
+            for (int i = 0; i < Length; i++)
+            {
+                target[i] = new Complex(temp[2 * i], temp[2 * i + 1]);
+            }
+        }
+
+        /// <summary>
+        /// Copy data to array of doubles.
+        /// </summary>
+        /// <param name="target">Array of doubles, alternating real and imaginary.</param>
+        public void CopyTo(double[] target)
+        {
+            int size = 2 * Length;
+
+            if (target.Length < size)
+            {
+                throw new Exception();
+            }
+
+            Marshal.Copy(Handle, target, 0, size);
+        }
+
+        /// <summary>
+        /// Copy data to array of doubles.
+        /// </summary>
+        /// <param name="data">Array of doubles, alternating real and imaginary.</param>
+        /// <param name="real">If true, only real part is considered.</param>
+        public void CopyTo(double[] target, bool real)
+        {
+            if (!real)
+            {
+                CopyTo(target);
+                return;
+            }
+
+            var temp = GetTemporaryStorage();
+
+            CopyTo(temp);
+
+            for (int i = 0; i < Length; i++)
+            {
+                target[i] = temp[2 * i];
+            }
+        }
+
+        /// <summary>
+        /// Get data as doubles.
+        /// </summary>
+        /// <returns>Array of doubles, alternating real and imaginary.</returns>
+        public double[] ToArray()
+        {
+            int size = 2 * Length;
+
+            double[] data = new double[size];
+
+            Marshal.Copy(Handle, data, 0, size);
 
             return data;
         }
 
-        public double[] GetData_Real()
+        private double[] GetTemporaryStorage()
         {
-            double[] datad = new double[length * 2];
-            Marshal.Copy(handle, datad, 0, length * 2);
-            double[] data = new double[length];
-
-            for (int i = 0; i < length; i++)
+            if (storage == null)
             {
-                data[i] = datad[2 * i];
+                storage = new double[2 * Length];
             }
 
-            return data;
-        }
-
-        /// <summary>
-        /// Get the data out
-        /// </summary>
-        /// <returns></returns>
-        public double[] GetData_double()
-        {
-            double[] datad = new double[length * 2];
-            Marshal.Copy(handle, datad, 0, length * 2);
-
-            return datad;
-        }
-
-        ~ComplexArray()
-        {
-            NativeMethods.free(handle);
+            return storage;
         }
     }
 }
