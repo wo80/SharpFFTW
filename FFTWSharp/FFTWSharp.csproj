@@ -37,17 +37,17 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Double\fftw_complexarray.cs" />
-    <Compile Include="fftw_direction.cs" />
-    <Compile Include="fftw_flags.cs" />
-    <Compile Include="fftw_kind.cs" />
-    <Compile Include="Double\Interop.cs">
+    <Compile Include="Double\ComplexArray.cs" />
+    <Compile Include="Direction.cs" />
+    <Compile Include="Options.cs" />
+    <Compile Include="Transform.cs" />
+    <Compile Include="Double\NativeMethods.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Double\fftw_plan.cs" />
-    <Compile Include="Single\fftwf_complexarray.cs" />
-    <Compile Include="Single\Interop.cs" />
-    <Compile Include="Single\fftwf_plan.cs" />
+    <Compile Include="Double\Plan.cs" />
+    <Compile Include="Single\ComplexArray.cs" />
+    <Compile Include="Single\NativeMethods.cs" />
+    <Compile Include="Single\Plan.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

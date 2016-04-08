@@ -26,7 +26,7 @@ namespace FFTWSharp.Double
 	/// <summary>
 	/// Contains the Basic Interface FFTW functions for double-precision (double) operations
 	/// </summary>
-	public class fftw
+	public static class NativeMethods
 	{
 		/// <summary>
 		/// Allocates FFTW-optimized unmanaged memory

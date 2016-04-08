@@ -28,7 +28,7 @@ namespace FFTWSharp.Single
         public ComplexArray(int length)
         {
             this.length = length;
-            this.handle = fftwf.malloc(this.length * 8);
+            this.handle = NativeMethods.malloc(this.length * 8);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace FFTWSharp.Single
         public ComplexArray(float[] data)
         {
             this.length = data.Length / 2;
-            this.handle = fftwf.malloc(this.length * 8);
+            this.handle = NativeMethods.malloc(this.length * 8);
 
             this.SetData(data);
         }
@@ -50,7 +50,7 @@ namespace FFTWSharp.Single
         public ComplexArray(Complex[] data)
         {
             this.length = data.Length;
-            this.handle = fftwf.malloc(this.length * 16);
+            this.handle = NativeMethods.malloc(this.length * 16);
 
             this.SetData(data);
         }
@@ -141,7 +141,7 @@ namespace FFTWSharp.Single
 
         ~ComplexArray()
         {
-            fftwf.free(handle);
+            NativeMethods.free(handle);
         }
     }
 }

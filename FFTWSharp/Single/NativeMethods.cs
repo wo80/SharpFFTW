@@ -26,7 +26,7 @@ namespace FFTWSharp.Single
 	/// <summary>
 	/// Contains the Basic Interface FFTW functions for single-precision (float) operations
 	/// </summary>
-	public class fftwf
+	public static class NativeMethods
 	{
 		/// <summary>
 		/// Allocates FFTW-optimized unmanaged memory

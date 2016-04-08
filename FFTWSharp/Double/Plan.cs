@@ -39,12 +39,12 @@ namespace FFTWSharp.Double
 
         public void Execute()
         {
-            fftw.execute(handle);
+            NativeMethods.execute(handle);
         }
 
         ~Plan()
         {
-            fftw.destroy_plan(handle);
+            NativeMethods.destroy_plan(handle);
         }
 
         #region Plan Creation
@@ -53,7 +53,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_dft_1d(n, input.Handle, output.Handle, direction, flags);
+            p.handle = NativeMethods.plan_dft_1d(n, input.Handle, output.Handle, direction, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
@@ -63,7 +63,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_dft_2d(nx, ny, input.Handle, output.Handle, direction, flags);
+            p.handle = NativeMethods.plan_dft_2d(nx, ny, input.Handle, output.Handle, direction, flags);
             FFTW_Lock.ReleaseMutex();
             
             return p;
@@ -73,7 +73,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_dft_3d(nx, ny, nz, input.Handle, output.Handle, direction, flags);
+            p.handle = NativeMethods.plan_dft_3d(nx, ny, nz, input.Handle, output.Handle, direction, flags);
             FFTW_Lock.ReleaseMutex();
             
             return p;
@@ -83,7 +83,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_dft(rank, n, input.Handle, output.Handle, direction, flags);
+            p.handle = NativeMethods.plan_dft(rank, n, input.Handle, output.Handle, direction, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
@@ -94,7 +94,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_dft_r2c_1d(n, input.Handle, output.Handle, flags);
+            p.handle = NativeMethods.plan_dft_r2c_1d(n, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
@@ -104,7 +104,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_dft_r2c_2d(nx, ny, input.Handle, output.Handle, flags);
+            p.handle = NativeMethods.plan_dft_r2c_2d(nx, ny, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
@@ -114,7 +114,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_dft_r2c_3d(nx, ny, nz, input.Handle, output.Handle, flags);
+            p.handle = NativeMethods.plan_dft_r2c_3d(nx, ny, nz, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
@@ -124,7 +124,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_dft_r2c(rank, n, input.Handle, output.Handle, flags);
+            p.handle = NativeMethods.plan_dft_r2c(rank, n, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
@@ -135,7 +135,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_dft_c2r_1d(n, input.Handle, output.Handle, flags);
+            p.handle = NativeMethods.plan_dft_c2r_1d(n, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
@@ -145,7 +145,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_dft_c2r_2d(nx, ny, input.Handle, output.Handle, flags);
+            p.handle = NativeMethods.plan_dft_c2r_2d(nx, ny, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
@@ -155,7 +155,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_dft_c2r_3d(nx, ny, nz, input.Handle, output.Handle, flags);
+            p.handle = NativeMethods.plan_dft_c2r_3d(nx, ny, nz, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
@@ -165,7 +165,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_dft_c2r(rank, n, input.Handle, output.Handle, flags);
+            p.handle = NativeMethods.plan_dft_c2r(rank, n, input.Handle, output.Handle, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
@@ -176,7 +176,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_r2r_1d(n, input.Handle, output.Handle, kind, flags);
+            p.handle = NativeMethods.plan_r2r_1d(n, input.Handle, output.Handle, kind, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
@@ -186,7 +186,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_r2r_2d(nx, ny, input.Handle, output.Handle, kindx, kindy, flags);
+            p.handle = NativeMethods.plan_r2r_2d(nx, ny, input.Handle, output.Handle, kindx, kindy, flags);
             FFTW_Lock.ReleaseMutex();
 
             return p;
@@ -197,7 +197,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_r2r_3d(nx, ny, nz, input.Handle, output.Handle,
+            p.handle = NativeMethods.plan_r2r_3d(nx, ny, nz, input.Handle, output.Handle,
                 kindx, kindy, kindz, flags);
             FFTW_Lock.ReleaseMutex();
 
@@ -209,7 +209,7 @@ namespace FFTWSharp.Double
         {
             FFTW_Lock.WaitOne();
             Plan p = new Plan();
-            p.handle = fftw.plan_r2r(rank, n, input.Handle, output.Handle,
+            p.handle = NativeMethods.plan_r2r(rank, n, input.Handle, output.Handle,
                 kind, flags);
             FFTW_Lock.ReleaseMutex();
 
