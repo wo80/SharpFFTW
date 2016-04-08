@@ -27,13 +27,15 @@ namespace FFTWSharp.Double
 	/// Contains the Basic Interface FFTW functions for double-precision (double) operations
 	/// </summary>
 	public static class NativeMethods
-	{
+    {
+        private const string Library = "libfftw3-3";
+
 		/// <summary>
 		/// Allocates FFTW-optimized unmanaged memory
 		/// </summary>
 		/// <param name="length">Amount to allocate, in bytes</param>
 		/// <returns>Pointer to allocated memory</returns>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_malloc",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -43,7 +45,7 @@ namespace FFTWSharp.Double
 		/// Deallocates memory allocated by FFTW malloc
 		/// </summary>
 		/// <param name="mem">Pointer to memory to release</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_free",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -53,7 +55,7 @@ namespace FFTWSharp.Double
 		/// Deallocates an FFTW plan and all associated resources
 		/// </summary>
 		/// <param name="plan">Pointer to the plan to release</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_destroy_plan",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -66,7 +68,7 @@ namespace FFTWSharp.Double
 		/// attempt to execute them nor to destroy them. You can however create and execute/destroy new plans, 
 		/// in which case FFTW starts accumulating wisdom information again. 
 		/// fftw_cleanup does not deallocate your plans; you should still call fftw_destroy_plan for this purpose.</remarks>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_cleanup",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -84,7 +86,7 @@ namespace FFTWSharp.Double
 		/// permitting) in Patient. If fftw_flags.Exhaustive is specified instead, the planner will further progress to 
 		/// Exhaustive mode. 
 		/// </remarks>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_set_timelimit",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -95,7 +97,7 @@ namespace FFTWSharp.Double
 		/// </summary>
 		/// <param name="plan">Pointer to the plan to execute</param>
 		/// <remarks>execute (and equivalents) is the only function in FFTW guaranteed to be thread-safe.</remarks>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_execute",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -109,7 +111,7 @@ namespace FFTWSharp.Double
 		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_1d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -125,7 +127,7 @@ namespace FFTWSharp.Double
 		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_2d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -142,7 +144,7 @@ namespace FFTWSharp.Double
 		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_3d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -158,7 +160,7 @@ namespace FFTWSharp.Double
 		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -172,7 +174,7 @@ namespace FFTWSharp.Double
 		/// <param name="input">Pointer to an array of 8-byte real numbers</param>
 		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_r2c_1d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -186,7 +188,7 @@ namespace FFTWSharp.Double
 		/// <param name="input">Pointer to an array of 8-byte real numbers</param>
 		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_r2c_2d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -201,7 +203,7 @@ namespace FFTWSharp.Double
 		/// <param name="input">Pointer to an array of 8-byte real numbers</param>
 		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_r2c_3d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -215,7 +217,7 @@ namespace FFTWSharp.Double
 		/// <param name="input">Pointer to an array of 8-byte real numbers</param>
 		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_r2c",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -228,7 +230,7 @@ namespace FFTWSharp.Double
 		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_c2r_1d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -242,7 +244,7 @@ namespace FFTWSharp.Double
 		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_c2r_2d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -257,7 +259,7 @@ namespace FFTWSharp.Double
 		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_c2r_3d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -271,7 +273,7 @@ namespace FFTWSharp.Double
 		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
 		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_c2r",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -285,7 +287,7 @@ namespace FFTWSharp.Double
 		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
 		/// <param name="kind">The kind of real-to-real transform to compute</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_r2r_1d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -301,7 +303,7 @@ namespace FFTWSharp.Double
 		/// <param name="kindx">The kind of real-to-real transform to compute along the first dimension</param>
 		/// <param name="kindy">The kind of real-to-real transform to compute along the second dimension</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_r2r_2d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -320,7 +322,7 @@ namespace FFTWSharp.Double
 		/// <param name="kindy">The kind of real-to-real transform to compute along the second dimension</param>
 		/// <param name="kindz">The kind of real-to-real transform to compute along the third dimension</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_r2r_3d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -336,7 +338,7 @@ namespace FFTWSharp.Double
 		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
 		/// <param name="kind">An array containing the kind of real-to-real transform to compute along each dimension</param>
 		/// <param name="flags">Flags that specify the behavior of the planner</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_plan_r2r",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -351,7 +353,7 @@ namespace FFTWSharp.Double
 		/// <param name="mul">Reference to double to hold number of muls</param>
 		/// <param name="fma">Reference to double to hold number of fmas (fused multiply-add)</param>
 		/// <remarks>Total flops ~= add+mul+2*fma or add+mul+fma if fma is supported</remarks>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_flops",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -361,7 +363,7 @@ namespace FFTWSharp.Double
 		/// Outputs a "nerd-readable" version of the specified plan to stdout
 		/// </summary>
 		/// <param name="plan">The plan to output</param>
-		[DllImport("libfftw3-3.dll",
+		[DllImport(Library,
 			 EntryPoint = "fftw_print_plan",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -371,7 +373,7 @@ namespace FFTWSharp.Double
         /// Exports the accumulated Wisdom to the provided filename
         /// </summary>
         /// <param name="filename">The target filename</param>
-        [DllImport("libfftw3-3.dll",
+        [DllImport(Library,
              EntryPoint = "fftw_export_wisdom_to_filename",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
@@ -382,7 +384,7 @@ namespace FFTWSharp.Double
         /// Imports Wisdom from provided filename
         /// </summary>
         /// <param name="filename">The filename to read from</param>
-        [DllImport("libfftw3-3.dll",
+        [DllImport(Library,
              EntryPoint = "fftw_import_wisdom_from_filename",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
