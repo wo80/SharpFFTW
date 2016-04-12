@@ -7,31 +7,18 @@ namespace FFTWSharp.Double
     /// <summary>
     /// Double array pointing to the native FFTW memory.
     /// </summary>
-    public class RealArray
+    public class RealArray : AbstractArray<double>
     {
         private const int SIZE = 8; // sizeof(double)
-
-        /// <summary>
-        /// Gets the handle to the native memory.
-        /// </summary>
-        public IntPtr Handle { get; private set; }
-
-        /// <summary>
-        /// Gets the logical size of this array.
-        /// </summary>
-        public int Length { get; private set; }
-
-        // Temporary storage used for copying between native and managed.
-        private double[] storage;
 
         /// <summary>
         /// Creates a new array of doubles.
         /// </summary>
         /// <param name="length">Logical length of the array.</param>
         public RealArray(int length)
+            : base(length)
         {
-            this.Length = length;
-            this.Handle = NativeMethods.malloc(this.Length * SIZE);
+            Handle = NativeMethods.malloc(this.Length * SIZE);
         }
 
         /// <summary>
@@ -44,9 +31,18 @@ namespace FFTWSharp.Double
             this.Set(data);
         }
 
-        ~RealArray()
+        public override void Dispose(bool disposing)
         {
-            NativeMethods.free(Handle);
+            if (!hasDisposed)
+            {
+                if (Handle != IntPtr.Zero)
+                {
+                    NativeMethods.free(Handle);
+                    Handle = IntPtr.Zero;
+                }
+            }
+
+            hasDisposed = disposing;
         }
 
         /// <summary>
@@ -70,7 +66,7 @@ namespace FFTWSharp.Double
         /// </summary>
         public void Clear()
         {
-            var temp = GetTemporaryStorage();
+            var temp = GetTemporaryData(Length);
 
             Array.Clear(temp, 0, temp.Length);
 
@@ -106,16 +102,6 @@ namespace FFTWSharp.Double
             Marshal.Copy(Handle, data, 0, size);
 
             return data;
-        }
-
-        private double[] GetTemporaryStorage()
-        {
-            if (storage == null)
-            {
-                storage = new double[Length];
-            }
-
-            return storage;
         }
     }
 }

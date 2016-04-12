@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractPlan.cs" />
+    <Compile Include="AbstractArray.cs" />
     <Compile Include="Double\ComplexArray.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Double\RealArray.cs" />

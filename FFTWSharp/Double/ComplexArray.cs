@@ -8,31 +8,18 @@ namespace FFTWSharp.Double
     /// <summary>
     /// Complex array pointing to the native FFTW memory.
     /// </summary>
-    public class ComplexArray
+    public class ComplexArray : AbstractArray<double>
     {
         private const int SIZE = 16; // sizeof(Complex)
-
-        /// <summary>
-        /// Gets the handle to the native memory.
-        /// </summary>
-        public IntPtr Handle { get; private set; }
-
-        /// <summary>
-        /// Gets the logical size of this array.
-        /// </summary>
-        public int Length { get; private set; }
-
-        // Temporary storage used for copying between native and managed.
-        private double[] storage;
 
         /// <summary>
         /// Creates a new array of complex numbers.
         /// </summary>
         /// <param name="length">Logical length of the array.</param>
         public ComplexArray(int length)
+            : base(length)
         {
-            this.Length = length;
-            this.Handle = NativeMethods.malloc(this.Length * SIZE);
+            Handle = NativeMethods.malloc(this.Length * SIZE);
         }
 
         /// <summary>
@@ -55,9 +42,18 @@ namespace FFTWSharp.Double
             this.Set(data);
         }
 
-        ~ComplexArray()
+        public override void Dispose(bool disposing)
         {
-            NativeMethods.free(Handle);
+            if (!hasDisposed)
+            {
+                if (Handle != IntPtr.Zero)
+                {
+                    NativeMethods.free(Handle);
+                    Handle = IntPtr.Zero;
+                }
+            }
+
+            hasDisposed = disposing;
         }
 
         /// <summary>
@@ -87,7 +83,7 @@ namespace FFTWSharp.Double
                 throw new ArgumentException("Array length mismatch.");
             }
 
-            var temp = GetTemporaryStorage();
+            var temp = GetTemporaryData(2 * Length);
 
             for (int i = 0; i < source.Length; i++)
             {
@@ -103,7 +99,7 @@ namespace FFTWSharp.Double
         /// </summary>
         public void Clear()
         {
-            var temp = GetTemporaryStorage();
+            var temp = GetTemporaryData(2 * Length);
 
             Array.Clear(temp, 0, temp.Length);
 
@@ -121,7 +117,7 @@ namespace FFTWSharp.Double
                 throw new Exception();
             }
 
-            var temp = GetTemporaryStorage();
+            var temp = GetTemporaryData(2 * Length);
 
             CopyTo(temp);
 
@@ -160,7 +156,7 @@ namespace FFTWSharp.Double
                 return;
             }
 
-            var temp = GetTemporaryStorage();
+            var temp = GetTemporaryData(2 * Length);
 
             CopyTo(temp);
 
@@ -183,16 +179,6 @@ namespace FFTWSharp.Double
             Marshal.Copy(Handle, data, 0, size);
 
             return data;
-        }
-
-        private double[] GetTemporaryStorage()
-        {
-            if (storage == null)
-            {
-                storage = new double[2 * Length];
-            }
-
-            return storage;
         }
     }
 }

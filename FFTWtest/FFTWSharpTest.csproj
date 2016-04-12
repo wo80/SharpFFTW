@@ -8,8 +8,8 @@
     <ProjectGuid>{DA20704B-23A7-41A4-B4E2-174A0FED5F3D}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FFTWtest</RootNamespace>
-    <AssemblyName>FFTWtest</AssemblyName>
+    <RootNamespace>FFTWSharpTest</RootNamespace>
+    <AssemblyName>FFTWSharpTest</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -37,7 +37,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FFTWtest.cs" />
+    <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="libfftw3-3.dll">
@@ -50,7 +50,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FFTWSharp\FFTWSharp.csproj">
       <Project>{BEA875B8-E28A-49C5-8E7E-6512DA65F7E1}</Project>
-      <Name>fftwlib</Name>
+      <Name>FFTWSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

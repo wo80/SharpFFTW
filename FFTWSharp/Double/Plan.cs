@@ -100,7 +100,7 @@ namespace FFTWSharp.Double
             mutex.WaitOne();
             var handle = NativeMethods.plan_dft_2d(nx, ny, input.Handle, output.Handle, direction, flags);
             mutex.ReleaseMutex();
-            
+
             return new Plan(handle);
         }
 
