@@ -37,6 +37,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractPlan.cs" />
     <Compile Include="Double\ComplexArray.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Double\RealArray.cs" />
