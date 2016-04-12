@@ -37,7 +37,13 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Double\TestManaged1.cs" />
+    <Compile Include="Double\TestNative1.cs" />
+    <Compile Include="Double\Util.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Single\TestManaged1.cs" />
+    <Compile Include="Single\TestNative1.cs" />
+    <Compile Include="Single\Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="libfftw3-3.dll">
@@ -48,13 +54,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FFTWSharp\FFTWSharp.csproj">
-      <Project>{BEA875B8-E28A-49C5-8E7E-6512DA65F7E1}</Project>
-      <Name>FFTWSharp</Name>
-    </ProjectReference>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <ProjectReference Include="..\FFTWSharp\FFTWSharp.csproj">
+      <Project>{bea875b8-e28a-49c5-8e7e-6512da65f7e1}</Project>
+      <Name>FFTWSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
