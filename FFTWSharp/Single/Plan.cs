@@ -53,9 +53,8 @@ namespace FFTWSharp.Single
             hasDisposed = disposing;
         }
 
-        #region Plan Creation
+        #region 1D plan creation
 
-        //Complex<->Complex transforms
         public static Plan Create1(int n, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             mutex.WaitOne();
@@ -65,38 +64,41 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
-        public static Plan Create2(int nx, int ny, ComplexArray input, ComplexArray output, Direction direction, Options flags)
-        {
-            mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_2d(nx, ny, input.Handle, output.Handle, direction, flags);
-            mutex.ReleaseMutex();
-
-            return new Plan(handle);
-        }
-
-        public static Plan Create3(int nx, int ny, int nz, ComplexArray input, ComplexArray output, Direction direction, Options flags)
-        {
-            mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_3d(nx, ny, nz, input.Handle, output.Handle, direction, flags);
-            mutex.ReleaseMutex();
-
-            return new Plan(handle);
-        }
-
-        public static Plan Create(int rank, int[] n, ComplexArray input, ComplexArray output, Direction direction, Options flags)
-        {
-            mutex.WaitOne();
-            var handle = NativeMethods.plan_dft(rank, n, input.Handle, output.Handle, direction, flags);
-            mutex.ReleaseMutex();
-
-            return new Plan(handle);
-        }
-
-        //Real->Complex transforms
         public static Plan Create1(int n, RealArray input, ComplexArray output, Options flags)
         {
             mutex.WaitOne();
             var handle = NativeMethods.plan_dft_r2c_1d(n, input.Handle, output.Handle, flags);
+            mutex.ReleaseMutex();
+
+            return new Plan(handle);
+        }
+
+        public static Plan Create1(int n, ComplexArray input, RealArray output, Options flags)
+        {
+            mutex.WaitOne();
+            var handle = NativeMethods.plan_dft_c2r_1d(n, input.Handle, output.Handle, flags);
+            mutex.ReleaseMutex();
+
+            return new Plan(handle);
+        }
+
+        public static Plan Create1(int n, RealArray input, RealArray output, Transform kind, Options flags)
+        {
+            mutex.WaitOne();
+            var handle = NativeMethods.plan_r2r_1d(n, input.Handle, output.Handle, kind, flags);
+            mutex.ReleaseMutex();
+
+            return new Plan(handle);
+        }
+
+        #endregion
+
+        #region 2D plan creation
+
+        public static Plan Create2(int nx, int ny, ComplexArray input, ComplexArray output, Direction direction, Options flags)
+        {
+            mutex.WaitOne();
+            var handle = NativeMethods.plan_dft_2d(nx, ny, input.Handle, output.Handle, direction, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle);
@@ -111,66 +113,10 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
-        public static Plan Create3(int nx, int ny, int nz, RealArray input, ComplexArray output, Options flags)
-        {
-            mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_r2c_3d(nx, ny, nz, input.Handle, output.Handle, flags);
-            mutex.ReleaseMutex();
-
-            return new Plan(handle);
-        }
-
-        public static Plan Create(int rank, int[] n, RealArray input, ComplexArray output, Options flags)
-        {
-            mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_r2c(rank, n, input.Handle, output.Handle, flags);
-            mutex.ReleaseMutex();
-
-            return new Plan(handle);
-        }
-
-        //Complex->Real
-        public static Plan Create1(int n, ComplexArray input, RealArray output, Options flags)
-        {
-            mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_c2r_1d(n, input.Handle, output.Handle, flags);
-            mutex.ReleaseMutex();
-
-            return new Plan(handle);
-        }
-
         public static Plan Create2(int nx, int ny, ComplexArray input, RealArray output, Options flags)
         {
             mutex.WaitOne();
             var handle = NativeMethods.plan_dft_c2r_2d(nx, ny, input.Handle, output.Handle, flags);
-            mutex.ReleaseMutex();
-
-            return new Plan(handle);
-        }
-
-        public static Plan Create3(int nx, int ny, int nz, ComplexArray input, RealArray output, Options flags)
-        {
-            mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_c2r_3d(nx, ny, nz, input.Handle, output.Handle, flags);
-            mutex.ReleaseMutex();
-
-            return new Plan(handle);
-        }
-
-        public static Plan Create(int rank, int[] n, ComplexArray input, RealArray output, Options flags)
-        {
-            mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_c2r(rank, n, input.Handle, output.Handle, flags);
-            mutex.ReleaseMutex();
-
-            return new Plan(handle);
-        }
-
-        //Real<->Real
-        public static Plan Create1(int n, RealArray input, RealArray output, Transform kind, Options flags)
-        {
-            mutex.WaitOne();
-            var handle = NativeMethods.plan_r2r_1d(n, input.Handle, output.Handle, kind, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle);
@@ -185,12 +131,74 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
+        #endregion
+
+        #region 3D plan creation
+
+        public static Plan Create3(int nx, int ny, int nz, ComplexArray input, ComplexArray output, Direction direction, Options flags)
+        {
+            mutex.WaitOne();
+            var handle = NativeMethods.plan_dft_3d(nx, ny, nz, input.Handle, output.Handle, direction, flags);
+            mutex.ReleaseMutex();
+
+            return new Plan(handle);
+        }
+
+        public static Plan Create3(int nx, int ny, int nz, RealArray input, ComplexArray output, Options flags)
+        {
+            mutex.WaitOne();
+            var handle = NativeMethods.plan_dft_r2c_3d(nx, ny, nz, input.Handle, output.Handle, flags);
+            mutex.ReleaseMutex();
+
+            return new Plan(handle);
+        }
+
+        public static Plan Create3(int nx, int ny, int nz, ComplexArray input, RealArray output, Options flags)
+        {
+            mutex.WaitOne();
+            var handle = NativeMethods.plan_dft_c2r_3d(nx, ny, nz, input.Handle, output.Handle, flags);
+            mutex.ReleaseMutex();
+
+            return new Plan(handle);
+        }
+
         public static Plan Create3(int nx, int ny, int nz, RealArray input, RealArray output,
             Transform kindx, Transform kindy, Transform kindz, Options flags)
         {
             mutex.WaitOne();
             var handle = NativeMethods.plan_r2r_3d(nx, ny, nz, input.Handle, output.Handle,
                 kindx, kindy, kindz, flags);
+            mutex.ReleaseMutex();
+
+            return new Plan(handle);
+        }
+
+        #endregion
+
+        #region General plan creation
+
+        public static Plan Create(int rank, int[] n, ComplexArray input, ComplexArray output, Direction direction, Options flags)
+        {
+            mutex.WaitOne();
+            var handle = NativeMethods.plan_dft(rank, n, input.Handle, output.Handle, direction, flags);
+            mutex.ReleaseMutex();
+
+            return new Plan(handle);
+        }
+
+        public static Plan Create(int rank, int[] n, RealArray input, ComplexArray output, Options flags)
+        {
+            mutex.WaitOne();
+            var handle = NativeMethods.plan_dft_r2c(rank, n, input.Handle, output.Handle, flags);
+            mutex.ReleaseMutex();
+
+            return new Plan(handle);
+        }
+
+        public static Plan Create(int rank, int[] n, ComplexArray input, RealArray output, Options flags)
+        {
+            mutex.WaitOne();
+            var handle = NativeMethods.plan_dft_c2r(rank, n, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle);
