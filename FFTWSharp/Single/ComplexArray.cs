@@ -5,8 +5,11 @@ namespace FFTWSharp.Single
     using System.Runtime.InteropServices;
 
     /// <summary>
-    /// Complex array pointing to the native FFTW memory.
+    /// Native array of complex (2*4-byte) floating point numbers.
     /// </summary>
+    /// <remarks>
+    /// The native memory is managed by FFTW (malloc, free).
+    /// </remarks>
     public class ComplexArray : AbstractArray<float>
     {
         private const int SIZE = 8; // sizeof(Complex32)
@@ -32,7 +35,7 @@ namespace FFTWSharp.Single
         }
 
         /// <summary>
-        /// Creates an FFTW-compatible array from array of complex numbers.
+        /// Creates an FFTW-compatible array from an array of complex numbers.
         /// </summary>
         /// <param name="data">Array of complex numbers.</param>
         public ComplexArray(Complex32[] data)
@@ -145,7 +148,7 @@ namespace FFTWSharp.Single
         /// <summary>
         /// Copy data to array of floats.
         /// </summary>
-        /// <param name="data">Array of floats, alternating real and imaginary.</param>
+        /// <param name="target">Array of floats, alternating real and imaginary.</param>
         /// <param name="real">If true, only real part is considered.</param>
         public void CopyTo(float[] target, bool real)
         {

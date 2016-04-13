@@ -5,8 +5,11 @@ namespace FFTWSharp.Double
     using System.Runtime.InteropServices;
 
     /// <summary>
-    /// Double array pointing to the native FFTW memory.
+    /// Native array of 8-byte floating point numbers.
     /// </summary>
+    /// <remarks>
+    /// The native memory is managed by FFTW (malloc, free).
+    /// </remarks>
     public class RealArray : AbstractArray<double>
     {
         private const int SIZE = 8; // sizeof(double)
@@ -24,7 +27,7 @@ namespace FFTWSharp.Double
         /// <summary>
         /// Creates an FFTW-compatible array from array of doubles.
         /// </summary>
-        /// <param name="data">Array of doubles, alternating real and imaginary.</param>
+        /// <param name="data">Array of 8-byte floating point numbers.</param>
         public RealArray(double[] data)
             : this(data.Length)
         {
@@ -46,7 +49,7 @@ namespace FFTWSharp.Double
         }
 
         /// <summary>
-        /// Set the data to an array of complex numbers.
+        /// Set the data to an array of doubles.
         /// </summary>
         /// <param name="source">Array of doubles, alternating real and imaginary.</param>
         public void Set(double[] source)
@@ -76,7 +79,7 @@ namespace FFTWSharp.Double
         /// <summary>
         /// Copy data to array of doubles.
         /// </summary>
-        /// <param name="target">Array of doubles, alternating real and imaginary.</param>
+        /// <param name="target">The target array.</param>
         public void CopyTo(double[] target)
         {
             int size = Length;
@@ -92,7 +95,7 @@ namespace FFTWSharp.Double
         /// <summary>
         /// Get data as doubles.
         /// </summary>
-        /// <returns>Array of doubles, alternating real and imaginary.</returns>
+        /// <returns>Array of doubles.</returns>
         public double[] ToArray()
         {
             int size = Length;

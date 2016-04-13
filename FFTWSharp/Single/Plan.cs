@@ -1,29 +1,12 @@
 // The code in this file is provided courtesy of Tamas Szalay. Some functionality has been added.
 
-// FFTWSharp
-// ===========
-// Basic C# wrapper for FFTW.
-//
-// Features
-// ============
-//    * Unmanaged function calls to main FFTW functions for both single and double precision
-//    * Basic managed wrappers for FFTW plans and unmanaged arrays
-//    * Test program that demonstrates basic functionality
-//
-// Notes
-// ============
-//    * Most of this was written in 2005
-//    * Slightly updated since to get it running with Visual Studio Express 2010
-//    * If you have a question about FFTW, ask the FFTW people, and not me. I did not write FFTW.
-//    * If you have a question about this wrapper, probably still don't ask me, since I wrote it almost a decade ago.
-
 namespace FFTWSharp.Single
 {
     using System;
     using System.Threading;
 
     /// <summary>
-    /// Creates, stores, and destroys fftw plans
+    /// Creates, stores, and destroys FFTW plans.
     /// </summary>
     public class Plan : AbstractPlan
     {
@@ -55,6 +38,15 @@ namespace FFTWSharp.Single
 
         #region 1D plan creation
 
+        /// <summary>
+        /// Create complex transform plan (fftwf_plan_dft_1d).
+        /// </summary>
+        /// <param name="n">The logical size of the transform.</param>
+        /// <param name="input">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="output">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="direction">Specifies the direction of the transform.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create1(int n, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             mutex.WaitOne();
@@ -64,6 +56,14 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
+        /// <summary>
+        /// Create real to complex transform plan (fftwf_plan_dft_r2c_1d).
+        /// </summary>
+        /// <param name="n">The logical size of the transform.</param>
+        /// <param name="input">FFTW array of 4-byte real numbers.</param>
+        /// <param name="output">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create1(int n, RealArray input, ComplexArray output, Options flags)
         {
             mutex.WaitOne();
@@ -73,6 +73,14 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
+        /// <summary>
+        /// Create complex to real transform plan (fftwf_plan_dft_c2r_1d).
+        /// </summary>
+        /// <param name="n">The logical size of the transform.</param>
+        /// <param name="input">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="output">FFTW array of 4-byte real numbers.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create1(int n, ComplexArray input, RealArray output, Options flags)
         {
             mutex.WaitOne();
@@ -82,6 +90,15 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
+        /// <summary>
+        /// Create real transform plan (fftwf_plan_r2r_1d).
+        /// </summary>
+        /// <param name="n">The logical size of the transform.</param>
+        /// <param name="input">FFTW array of 4-byte real numbers.</param>
+        /// <param name="output">FFTW array of 4-byte real numbers.</param>
+        /// <param name="kind">The kind of real-to-real transform to compute.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create1(int n, RealArray input, RealArray output, Transform kind, Options flags)
         {
             mutex.WaitOne();
@@ -95,6 +112,16 @@ namespace FFTWSharp.Single
 
         #region 2D plan creation
 
+        /// <summary>
+        /// Create complex transform plan (fftwf_plan_dft_2d).
+        /// </summary>
+        /// <param name="nx">The logical size of the transform along the first dimension.</param>
+        /// <param name="ny">The logical size of the transform along the second dimension.</param>
+        /// <param name="input">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="output">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="direction">Specifies the direction of the transform.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create2(int nx, int ny, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             mutex.WaitOne();
@@ -104,6 +131,15 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
+        /// <summary>
+        /// Create real to complex transform plan (fftwf_plan_dft_r2c_2d).
+        /// </summary>
+        /// <param name="nx">The logical size of the transform along the first dimension.</param>
+        /// <param name="ny">The logical size of the transform along the second dimension.</param>
+        /// <param name="input">FFTW array of 4-byte real numbers.</param>
+        /// <param name="output">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create2(int nx, int ny, RealArray input, ComplexArray output, Options flags)
         {
             mutex.WaitOne();
@@ -113,6 +149,15 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
+        /// <summary>
+        /// Create complex to real transform plan (fftwf_plan_dft_c2r_2d).
+        /// </summary>
+        /// <param name="nx">The logical size of the transform along the first dimension.</param>
+        /// <param name="ny">The logical size of the transform along the second dimension.</param>
+        /// <param name="input">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="output">FFTW array of 4-byte real numbers.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create2(int nx, int ny, ComplexArray input, RealArray output, Options flags)
         {
             mutex.WaitOne();
@@ -122,6 +167,17 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
+        /// <summary>
+        /// Create real transform plan (fftwf_plan_r2r_2d).
+        /// </summary>
+        /// <param name="nx">The logical size of the transform along the first dimension.</param>
+        /// <param name="ny">The logical size of the transform along the second dimension.</param>
+        /// <param name="input">FFTW array of 4-byte real numbers.</param>
+        /// <param name="output">FFTW array of 4-byte real numbers.</param>
+        /// <param name="kindx">The kind of real-to-real transform to compute along the first dimension.</param>
+        /// <param name="kindy">The kind of real-to-real transform to compute along the second dimension.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create2(int nx, int ny, RealArray input, RealArray output, Transform kindx, Transform kindy, Options flags)
         {
             mutex.WaitOne();
@@ -135,6 +191,17 @@ namespace FFTWSharp.Single
 
         #region 3D plan creation
 
+        /// <summary>
+        /// Create complex transform plan (fftwf_plan_dft_3d).
+        /// </summary>
+        /// <param name="nx">The logical size of the transform along the first dimension.</param>
+        /// <param name="ny">The logical size of the transform along the second dimension.</param>
+        /// <param name="nz">The logical size of the transform along the third dimension.</param>
+        /// <param name="input">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="output">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="direction">Specifies the direction of the transform.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create3(int nx, int ny, int nz, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             mutex.WaitOne();
@@ -144,6 +211,16 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
+        /// <summary>
+        /// Create real to complex transform plan (fftwf_plan_dft_r2c_3d).
+        /// </summary>
+        /// <param name="nx">The logical size of the transform along the first dimension.</param>
+        /// <param name="ny">The logical size of the transform along the second dimension.</param>
+        /// <param name="nz">The logical size of the transform along the third dimension.</param>
+        /// <param name="input">FFTW array of 4-byte real numbers.</param>
+        /// <param name="output">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create3(int nx, int ny, int nz, RealArray input, ComplexArray output, Options flags)
         {
             mutex.WaitOne();
@@ -153,6 +230,16 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
+        /// <summary>
+        /// Create complex to real transform plan (fftwf_plan_dft_c2r_3d).
+        /// </summary>
+        /// <param name="nx">The logical size of the transform along the first dimension.</param>
+        /// <param name="ny">The logical size of the transform along the second dimension.</param>
+        /// <param name="nz">The logical size of the transform along the third dimension.</param>
+        /// <param name="input">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="output">FFTW array of 4-byte real numbers.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create3(int nx, int ny, int nz, ComplexArray input, RealArray output, Options flags)
         {
             mutex.WaitOne();
@@ -162,6 +249,19 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
+        /// <summary>
+        /// Create real transform plan  (fftwf_plan_r2r_3d).
+        /// </summary>
+        /// <param name="nx">The logical size of the transform along the first dimension.</param>
+        /// <param name="ny">The logical size of the transform along the second dimension.</param>
+        /// <param name="nz">The logical size of the transform along the third dimension.</param>
+        /// <param name="input">FFTW array of 4-byte real numbers.</param>
+        /// <param name="output">FFTW array of 4-byte real numbers.</param>
+        /// <param name="kindx">The kind of real-to-real transform to compute along the first dimension.</param>
+        /// <param name="kindy">The kind of real-to-real transform to compute along the second dimension.</param>
+        /// <param name="kindz">The kind of real-to-real transform to compute along the third dimension.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create3(int nx, int ny, int nz, RealArray input, RealArray output,
             Transform kindx, Transform kindy, Transform kindz, Options flags)
         {
@@ -177,6 +277,16 @@ namespace FFTWSharp.Single
 
         #region General plan creation
 
+        /// <summary>
+        /// Create complex transform plan (fftwf_plan_dft).
+        /// </summary>
+        /// <param name="rank">Number of dimensions.</param>
+        /// <param name="n">Array containing the logical size along each dimension.</param>
+        /// <param name="input">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="output">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="direction"></param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create(int rank, int[] n, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             mutex.WaitOne();
@@ -186,6 +296,15 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
+        /// <summary>
+        /// Create real to complex transform plan (fftwf_plan_dft_r2c).
+        /// </summary>
+        /// <param name="rank">Number of dimensions.</param>
+        /// <param name="n">Array containing the logical size along each dimension.</param>
+        /// <param name="input">FFTW array of 4-byte real numbers.</param>
+        /// <param name="output">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create(int rank, int[] n, RealArray input, ComplexArray output, Options flags)
         {
             mutex.WaitOne();
@@ -195,6 +314,15 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
+        /// <summary>
+        /// Create complex to real transform plan (fftwf_plan_dft_c2r).
+        /// </summary>
+        /// <param name="rank">Number of dimensions.</param>
+        /// <param name="n">Array containing the logical size along each dimension.</param>
+        /// <param name="input">FFTW array of 8-byte complex numbers.</param>
+        /// <param name="output">FFTW array of 4-byte real numbers.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
         public static Plan Create(int rank, int[] n, ComplexArray input, RealArray output, Options flags)
         {
             mutex.WaitOne();
@@ -204,12 +332,20 @@ namespace FFTWSharp.Single
             return new Plan(handle);
         }
 
-        public static Plan Create(int rank, int[] n, RealArray input, RealArray output,
-            Transform[] kind, Options flags)
+        /// <summary>
+        /// Create real transform plan (fftwf_plan_r2r).
+        /// </summary>
+        /// <param name="rank">Number of dimensions.</param>
+        /// <param name="n">Array containing the logical size along each dimension.</param>
+        /// <param name="input">FFTW array of 4-byte real numbers.</param>
+        /// <param name="output">FFTW array of 4-byte real numbers.</param>
+        /// <param name="kind">An array containing the kind of real-to-real transform to compute along each dimension.</param>
+        /// <param name="flags">Flags that specify the behavior of the planner.</param>
+        /// <returns>The FFTW plan.</returns>
+        public static Plan Create(int rank, int[] n, RealArray input, RealArray output, Transform[] kind, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_r2r(rank, n, input.Handle, output.Handle,
-                kind, flags);
+            var handle = NativeMethods.plan_r2r(rank, n, input.Handle, output.Handle, kind, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle);

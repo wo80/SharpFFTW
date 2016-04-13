@@ -51,6 +51,11 @@ namespace FFTWSharp
 
         #endregion
 
+        /// <summary>
+        /// Return temporary array of given size.
+        /// </summary>
+        /// <param name="size">Size of the array.</param>
+        /// <returns></returns>
         protected T[] GetTemporaryData(int size)
         {
             if (data == null)

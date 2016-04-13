@@ -1,30 +1,12 @@
 // The code in this file is provided courtesy of Tamas Szalay. Some functionality has been added.
 
-// FFTWSharp
-// ===========
-// Basic C# wrapper for FFTW.
-//
-// Features
-// ============
-//    * Unmanaged function calls to main FFTW functions for both single and double precision
-//    * Basic managed wrappers for FFTW plans and unmanaged arrays
-//    * Test program that demonstrates basic functionality
-//
-// Notes
-// ============
-//    * Most of this was written in 2005
-//    * Slightly updated since to get it running with Visual Studio Express 2010
-//    * If you have a question about FFTW, ask the FFTW people, and not me. I did not write FFTW.
-//    * If you have a question about this wrapper, probably still don't ask me, since I wrote it almost a decade ago.
-
-
 using System;
 using System.Runtime.InteropServices;
 
 namespace FFTWSharp.Double
 {
 	/// <summary>
-	/// Contains the Basic Interface FFTW functions for double-precision (double) operations
+	/// Contains the basic interface FFTW functions for double-precision (double) operations.
 	/// </summary>
 	public static class NativeMethods
     {
@@ -33,7 +15,7 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Allocates FFTW-optimized unmanaged memory
 		/// </summary>
-		/// <param name="length">Amount to allocate, in bytes</param>
+		/// <param name="length">Amount to allocate, in bytes.</param>
 		/// <returns>Pointer to allocated memory</returns>
 		[DllImport(Library,
 			 EntryPoint = "fftw_malloc",
@@ -44,7 +26,7 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Deallocates memory allocated by FFTW malloc
 		/// </summary>
-		/// <param name="mem">Pointer to memory to release</param>
+		/// <param name="mem">Pointer to memory to release.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_free",
              ExactSpelling = true,
@@ -54,7 +36,7 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Deallocates an FFTW plan and all associated resources
 		/// </summary>
-		/// <param name="plan">Pointer to the plan to release</param>
+		/// <param name="plan">Pointer to the plan to release.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_destroy_plan",
              ExactSpelling = true,
@@ -95,7 +77,7 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Executes an FFTW plan, provided that the input and output arrays still exist
 		/// </summary>
-		/// <param name="plan">Pointer to the plan to execute</param>
+		/// <param name="plan">Pointer to the plan to execute.</param>
 		/// <remarks>execute (and equivalents) is the only function in FFTW guaranteed to be thread-safe.</remarks>
 		[DllImport(Library,
 			 EntryPoint = "fftw_execute",
@@ -104,13 +86,13 @@ namespace FFTWSharp.Double
 		public static extern void execute(IntPtr plan);
 		
 		/// <summary>
-		/// Creates a plan for a 1-dimensional complex-to-complex DFT
+		/// Creates a plan for a 1-dimensional complex-to-complex DFT.
 		/// </summary>
-		/// <param name="n">The logical size of the transform</param>
-		/// <param name="direction">Specifies the direction of the transform</param>
-		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="n">The logical size of the transform.</param>
+		/// <param name="input">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="output">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="direction">Specifies the direction of the transform.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_1d",
              ExactSpelling = true,
@@ -119,14 +101,14 @@ namespace FFTWSharp.Double
 			Direction direction, Options flags);
 
 		/// <summary>
-		/// Creates a plan for a 2-dimensional complex-to-complex DFT
+		/// Creates a plan for a 2-dimensional complex-to-complex DFT.
 		/// </summary>
-		/// <param name="nx">The logical size of the transform along the first dimension</param>
-		/// <param name="ny">The logical size of the transform along the second dimension</param>
-		/// <param name="direction">Specifies the direction of the transform</param>
-		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="nx">The logical size of the transform along the first dimension.</param>
+		/// <param name="ny">The logical size of the transform along the second dimension.</param>
+		/// <param name="input">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="output">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="direction">Specifies the direction of the transform.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_2d",
              ExactSpelling = true,
@@ -135,15 +117,15 @@ namespace FFTWSharp.Double
 			Direction direction, Options flags);
 
 		/// <summary>
-		/// Creates a plan for a 3-dimensional complex-to-complex DFT
+		/// Creates a plan for a 3-dimensional complex-to-complex DFT.
 		/// </summary>
-		/// <param name="nx">The logical size of the transform along the first dimension</param>
-		/// <param name="ny">The logical size of the transform along the second dimension</param>
-		/// <param name="nz">The logical size of the transform along the third dimension</param>
-		/// <param name="direction">Specifies the direction of the transform</param>
-		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="nx">The logical size of the transform along the first dimension.</param>
+		/// <param name="ny">The logical size of the transform along the second dimension.</param>
+		/// <param name="nz">The logical size of the transform along the third dimension.</param>
+		/// <param name="input">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="output">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="direction">Specifies the direction of the transform.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_3d",
              ExactSpelling = true,
@@ -152,14 +134,14 @@ namespace FFTWSharp.Double
 			Direction direction, Options flags);
 
 		/// <summary>
-		/// Creates a plan for an n-dimensional complex-to-complex DFT
+		/// Creates a plan for an n-dimensional complex-to-complex DFT.
 		/// </summary>
-		/// <param name="rank">Number of dimensions</param>
-		/// <param name="n">Array containing the logical size along each dimension</param>
-		/// <param name="direction">Specifies the direction of the transform</param>
-		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="rank">Number of dimensions.</param>
+		/// <param name="n">Array containing the logical size along each dimension.</param>
+		/// <param name="input">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="output">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="direction">Specifies the direction of the transform.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft",
              ExactSpelling = true,
@@ -170,10 +152,10 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Creates a plan for a 1-dimensional real-to-complex DFT
 		/// </summary>
-		/// <param name="n">Number of REAL (input) elements in the transform</param>
-		/// <param name="input">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="n">Number of REAL (input) elements in the transform.</param>
+		/// <param name="input">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="output">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_r2c_1d",
              ExactSpelling = true,
@@ -183,11 +165,11 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Creates a plan for a 2-dimensional real-to-complex DFT
 		/// </summary>
-		/// <param name="nx">Number of REAL (input) elements in the transform along the first dimension</param>
-		/// <param name="ny">Number of REAL (input) elements in the transform along the second dimension</param>
-		/// <param name="input">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="nx">Number of REAL (input) elements in the transform along the first dimension.</param>
+		/// <param name="ny">Number of REAL (input) elements in the transform along the second dimension.</param>
+		/// <param name="input">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="output">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_r2c_2d",
              ExactSpelling = true,
@@ -197,12 +179,12 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Creates a plan for a 3-dimensional real-to-complex DFT
 		/// </summary>
-		/// <param name="nx">Number of REAL (input) elements in the transform along the first dimension</param>
-		/// <param name="ny">Number of REAL (input) elements in the transform along the second dimension</param>
-		/// <param name="nz">Number of REAL (input) elements in the transform along the third dimension</param>
-		/// <param name="input">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="nx">Number of REAL (input) elements in the transform along the first dimension.</param>
+		/// <param name="ny">Number of REAL (input) elements in the transform along the second dimension.</param>
+		/// <param name="nz">Number of REAL (input) elements in the transform along the third dimension.</param>
+		/// <param name="input">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="output">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_r2c_3d",
              ExactSpelling = true,
@@ -212,11 +194,11 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Creates a plan for an n-dimensional real-to-complex DFT
 		/// </summary>
-		/// <param name="rank">Number of dimensions</param>
-		/// <param name="n">Array containing the number of REAL (input) elements along each dimension</param>
-		/// <param name="input">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="output">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="rank">Number of dimensions.</param>
+		/// <param name="n">Array containing the number of REAL (input) elements along each dimension.</param>
+		/// <param name="input">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="output">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_r2c",
              ExactSpelling = true,
@@ -226,10 +208,10 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Creates a plan for a 1-dimensional complex-to-real DFT
 		/// </summary>
-		/// <param name="n">Number of REAL (output) elements in the transform</param>
-		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="n">Number of REAL (output) elements in the transform.</param>
+		/// <param name="input">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="output">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_c2r_1d",
              ExactSpelling = true,
@@ -239,11 +221,11 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Creates a plan for a 2-dimensional complex-to-real DFT
 		/// </summary>
-		/// <param name="nx">Number of REAL (output) elements in the transform along the first dimension</param>
-		/// <param name="ny">Number of REAL (output) elements in the transform along the second dimension</param>
-		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="nx">Number of REAL (output) elements in the transform along the first dimension.</param>
+		/// <param name="ny">Number of REAL (output) elements in the transform along the second dimension.</param>
+		/// <param name="input">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="output">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_c2r_2d",
              ExactSpelling = true,
@@ -253,12 +235,12 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Creates a plan for a 3-dimensional complex-to-real DFT
 		/// </summary>
-		/// <param name="nx">Number of REAL (output) elements in the transform along the first dimension</param>
-		/// <param name="ny">Number of REAL (output) elements in the transform along the second dimension</param>
-		/// <param name="nz">Number of REAL (output) elements in the transform along the third dimension</param>
-		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="nx">Number of REAL (output) elements in the transform along the first dimension.</param>
+		/// <param name="ny">Number of REAL (output) elements in the transform along the second dimension.</param>
+		/// <param name="nz">Number of REAL (output) elements in the transform along the third dimension.</param>
+		/// <param name="input">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="output">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_c2r_3d",
              ExactSpelling = true,
@@ -268,11 +250,11 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Creates a plan for an n-dimensional complex-to-real DFT
 		/// </summary>
-		/// <param name="rank">Number of dimensions</param>
-		/// <param name="n">Array containing the number of REAL (output) elements along each dimension</param>
-		/// <param name="input">Pointer to an array of 16-byte complex numbers</param>
-		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="rank">Number of dimensions.</param>
+		/// <param name="n">Array containing the number of REAL (output) elements along each dimension.</param>
+		/// <param name="input">Pointer to an array of 16-byte complex numbers.</param>
+		/// <param name="output">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_dft_c2r",
              ExactSpelling = true,
@@ -282,11 +264,11 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Creates a plan for a 1-dimensional real-to-real DFT
 		/// </summary>
-		/// <param name="n">Number of elements in the transform</param>
-		/// <param name="input">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="kind">The kind of real-to-real transform to compute</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="n">Number of elements in the transform.</param>
+		/// <param name="input">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="output">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="kind">The kind of real-to-real transform to compute.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_r2r_1d",
              ExactSpelling = true,
@@ -296,13 +278,13 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Creates a plan for a 2-dimensional real-to-real DFT
 		/// </summary>
-		/// <param name="nx">Number of elements in the transform along the first dimension</param>
-		/// <param name="ny">Number of elements in the transform along the second dimension</param>
-		/// <param name="input">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="kindx">The kind of real-to-real transform to compute along the first dimension</param>
-		/// <param name="kindy">The kind of real-to-real transform to compute along the second dimension</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="nx">Number of elements in the transform along the first dimension.</param>
+		/// <param name="ny">Number of elements in the transform along the second dimension.</param>
+		/// <param name="input">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="output">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="kindx">The kind of real-to-real transform to compute along the first dimension.</param>
+		/// <param name="kindy">The kind of real-to-real transform to compute along the second dimension.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_r2r_2d",
              ExactSpelling = true,
@@ -313,15 +295,15 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Creates a plan for a 3-dimensional real-to-real DFT
 		/// </summary>
-		/// <param name="nx">Number of elements in the transform along the first dimension</param>
-		/// <param name="ny">Number of elements in the transform along the second dimension</param>
-		/// <param name="nz">Number of elements in the transform along the third dimension</param>
-		/// <param name="input">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="kindx">The kind of real-to-real transform to compute along the first dimension</param>
-		/// <param name="kindy">The kind of real-to-real transform to compute along the second dimension</param>
-		/// <param name="kindz">The kind of real-to-real transform to compute along the third dimension</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="nx">Number of elements in the transform along the first dimension.</param>
+		/// <param name="ny">Number of elements in the transform along the second dimension.</param>
+		/// <param name="nz">Number of elements in the transform along the third dimension.</param>
+		/// <param name="input">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="output">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="kindx">The kind of real-to-real transform to compute along the first dimension.</param>
+		/// <param name="kindy">The kind of real-to-real transform to compute along the second dimension.</param>
+		/// <param name="kindz">The kind of real-to-real transform to compute along the third dimension.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_r2r_3d",
              ExactSpelling = true,
@@ -332,12 +314,12 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Creates a plan for an n-dimensional real-to-real DFT
 		/// </summary>
-		/// <param name="rank">Number of dimensions</param>
-		/// <param name="n">Array containing the number of elements in the transform along each dimension</param>
-		/// <param name="input">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="output">Pointer to an array of 8-byte real numbers</param>
-		/// <param name="kind">An array containing the kind of real-to-real transform to compute along each dimension</param>
-		/// <param name="flags">Flags that specify the behavior of the planner</param>
+		/// <param name="rank">Number of dimensions.</param>
+		/// <param name="n">Array containing the number of elements in the transform along each dimension.</param>
+		/// <param name="input">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="output">Pointer to an array of 8-byte real numbers.</param>
+		/// <param name="kind">An array containing the kind of real-to-real transform to compute along each dimension.</param>
+		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_plan_r2r",
              ExactSpelling = true,
@@ -348,10 +330,10 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Returns (approximately) the number of flops used by a certain plan
 		/// </summary>
-		/// <param name="plan">The plan to measure</param>
-		/// <param name="add">Reference to double to hold number of adds</param>
-		/// <param name="mul">Reference to double to hold number of muls</param>
-		/// <param name="fma">Reference to double to hold number of fmas (fused multiply-add)</param>
+		/// <param name="plan">The plan to measure.</param>
+		/// <param name="add">Reference to double to hold number of adds.</param>
+		/// <param name="mul">Reference to double to hold number of muls.</param>
+		/// <param name="fma">Reference to double to hold number of fmas (fused multiply-add).</param>
 		/// <remarks>Total flops ~= add+mul+2*fma or add+mul+fma if fma is supported</remarks>
 		[DllImport(Library,
 			 EntryPoint = "fftw_flops",
@@ -362,7 +344,7 @@ namespace FFTWSharp.Double
 		/// <summary>
 		/// Outputs a "nerd-readable" version of the specified plan to stdout
 		/// </summary>
-		/// <param name="plan">The plan to output</param>
+		/// <param name="plan">The plan to output.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftw_print_plan",
              ExactSpelling = true,
@@ -372,7 +354,7 @@ namespace FFTWSharp.Double
         /// <summary>
         /// Exports the accumulated Wisdom to the provided filename
         /// </summary>
-        /// <param name="filename">The target filename</param>
+        /// <param name="filename">The target filename.</param>
         [DllImport(Library,
              EntryPoint = "fftw_export_wisdom_to_filename",
              ExactSpelling = true,
@@ -383,7 +365,7 @@ namespace FFTWSharp.Double
         /// <summary>
         /// Imports Wisdom from provided filename
         /// </summary>
-        /// <param name="filename">The filename to read from</param>
+        /// <param name="filename">The filename to read from.</param>
         [DllImport(Library,
              EntryPoint = "fftw_import_wisdom_from_filename",
              ExactSpelling = true,

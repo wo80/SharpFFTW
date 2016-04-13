@@ -5,8 +5,11 @@ namespace FFTWSharp.Single
     using System.Runtime.InteropServices;
 
     /// <summary>
-    /// Double array pointing to the native FFTW memory.
+    /// Native array of 4-byte floating point numbers.
     /// </summary>
+    /// <remarks>
+    /// The native memory is managed by FFTW (malloc, free).
+    /// </remarks>
     public class RealArray : AbstractArray<float>
     {
         private const int SIZE = 4; // sizeof(float)
@@ -24,7 +27,7 @@ namespace FFTWSharp.Single
         /// <summary>
         /// Creates an FFTW-compatible array from array of floats.
         /// </summary>
-        /// <param name="data">Array of floats, alternating real and imaginary.</param>
+        /// <param name="data">Array of 4-byte floating point numbers.</param>
         public RealArray(float[] data)
             : this(data.Length)
         {
@@ -46,9 +49,9 @@ namespace FFTWSharp.Single
         }
 
         /// <summary>
-        /// Set the data to an array of complex numbers.
+        /// Set the data to an array of floats.
         /// </summary>
-        /// <param name="source">Array of floats, alternating real and imaginary.</param>
+        /// <param name="source">Array of 4-byte floating point numbers.</param>
         public void Set(float[] source)
         {
             int size = Length;
@@ -76,7 +79,7 @@ namespace FFTWSharp.Single
         /// <summary>
         /// Copy data to array of floats.
         /// </summary>
-        /// <param name="target">Array of floats, alternating real and imaginary.</param>
+        /// <param name="target">The target array.</param>
         public void CopyTo(float[] target)
         {
             int size = Length;
@@ -92,7 +95,7 @@ namespace FFTWSharp.Single
         /// <summary>
         /// Get data as floats.
         /// </summary>
-        /// <returns>Array of floats, alternating real and imaginary.</returns>
+        /// <returns>Array of floats.</returns>
         public float[] ToArray()
         {
             int size = Length;
