@@ -63,7 +63,7 @@ namespace FFTWSharp.Double
         /// Set the data to an array of complex numbers.
         /// </summary>
         /// <param name="source">Array of doubles, alternating real and imaginary.</param>
-        public void Set(double[] source)
+        public override void Set(double[] source)
         {
             int size = 2 * Length;
 
@@ -100,7 +100,7 @@ namespace FFTWSharp.Double
         /// <summary>
         /// Set the data to zeros.
         /// </summary>
-        public void Clear()
+        public override void Clear()
         {
             var temp = GetTemporaryData(2 * Length);
 
@@ -134,7 +134,7 @@ namespace FFTWSharp.Double
         /// Copy data to array of doubles.
         /// </summary>
         /// <param name="target">Array of doubles, alternating real and imaginary.</param>
-        public void CopyTo(double[] target)
+        public override void CopyTo(double[] target)
         {
             int size = 2 * Length;
 
@@ -173,7 +173,7 @@ namespace FFTWSharp.Double
         /// Get data as doubles.
         /// </summary>
         /// <returns>Array of doubles, alternating real and imaginary.</returns>
-        public double[] ToArray()
+        public override double[] ToArray()
         {
             int size = 2 * Length;
 

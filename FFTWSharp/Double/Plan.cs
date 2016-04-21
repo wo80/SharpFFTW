@@ -8,12 +8,13 @@ namespace FFTWSharp.Double
     /// <summary>
     /// Creates, stores, and destroys FFTW plans.
     /// </summary>
-    public class Plan : AbstractPlan
+    public class Plan : AbstractPlan<double>
     {
         private static readonly Mutex mutex = new Mutex();
 
-        public Plan(IntPtr handle)
-            : base(handle)
+        private Plan(IntPtr handle, AbstractArray<double> input,
+            AbstractArray<double> output, bool ownsArrays)
+            : base(handle, input, output, ownsArrays)
         {
         }
 
@@ -30,6 +31,12 @@ namespace FFTWSharp.Double
                 {
                     NativeMethods.destroy_plan(handle);
                     handle = IntPtr.Zero;
+                }
+
+                if (ownsArrays)
+                {
+                    input.Dispose();
+                    output.Dispose();
                 }
             }
 
@@ -53,7 +60,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_dft_1d(n, input.Handle, output.Handle, direction, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         /// <summary>
@@ -70,7 +77,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_dft_r2c_1d(n, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         /// <summary>
@@ -87,7 +94,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_dft_c2r_1d(n, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         /// <summary>
@@ -105,7 +112,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_r2r_1d(n, input.Handle, output.Handle, kind, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         #endregion
@@ -128,7 +135,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_dft_2d(nx, ny, input.Handle, output.Handle, direction, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         /// <summary>
@@ -146,7 +153,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_dft_r2c_2d(nx, ny, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         /// <summary>
@@ -164,7 +171,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_dft_c2r_2d(nx, ny, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         /// <summary>
@@ -184,7 +191,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_r2r_2d(nx, ny, input.Handle, output.Handle, kindx, kindy, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         #endregion
@@ -208,7 +215,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_dft_3d(nx, ny, nz, input.Handle, output.Handle, direction, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         /// <summary>
@@ -227,7 +234,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_dft_r2c_3d(nx, ny, nz, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         /// <summary>
@@ -246,7 +253,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_dft_c2r_3d(nx, ny, nz, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         /// <summary>
@@ -270,7 +277,7 @@ namespace FFTWSharp.Double
                 kindx, kindy, kindz, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         #endregion
@@ -293,7 +300,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_dft(rank, n, input.Handle, output.Handle, direction, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         /// <summary>
@@ -311,7 +318,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_dft_r2c(rank, n, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         /// <summary>
@@ -329,7 +336,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_dft_c2r(rank, n, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         /// <summary>
@@ -348,7 +355,7 @@ namespace FFTWSharp.Double
             var handle = NativeMethods.plan_r2r(rank, n, input.Handle, output.Handle, kind, flags);
             mutex.ReleaseMutex();
 
-            return new Plan(handle);
+            return new Plan(handle, input, output, false);
         }
 
         #endregion

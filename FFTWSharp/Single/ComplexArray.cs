@@ -62,7 +62,7 @@ namespace FFTWSharp.Single
         /// Set the data to an array of complex numbers.
         /// </summary>
         /// <param name="source">Array of floats, alternating real and imaginary.</param>
-        public void Set(float[] source)
+        public override void Set(float[] source)
         {
             int size = 2 * Length;
 
@@ -99,7 +99,7 @@ namespace FFTWSharp.Single
         /// <summary>
         /// Set the data to zeros.
         /// </summary>
-        public void Clear()
+        public override void Clear()
         {
             var temp = GetTemporaryData(2 * Length);
 
@@ -133,7 +133,7 @@ namespace FFTWSharp.Single
         /// Copy data to array of floats.
         /// </summary>
         /// <param name="target">Array of floats, alternating real and imaginary.</param>
-        public void CopyTo(float[] target)
+        public override void CopyTo(float[] target)
         {
             int size = 2 * Length;
 
@@ -172,7 +172,7 @@ namespace FFTWSharp.Single
         /// Get data as floats.
         /// </summary>
         /// <returns>Array of floats, alternating real and imaginary.</returns>
-        public float[] ToArray()
+        public override float[] ToArray()
         {
             int size = 2 * Length;
 

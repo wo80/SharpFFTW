@@ -52,7 +52,7 @@ namespace FFTWSharp.Single
         /// Set the data to an array of floats.
         /// </summary>
         /// <param name="source">Array of 4-byte floating point numbers.</param>
-        public void Set(float[] source)
+        public override void Set(float[] source)
         {
             int size = Length;
 
@@ -67,7 +67,7 @@ namespace FFTWSharp.Single
         /// <summary>
         /// Set the data to zeros.
         /// </summary>
-        public void Clear()
+        public override void Clear()
         {
             var temp = GetTemporaryData(Length);
 
@@ -80,7 +80,7 @@ namespace FFTWSharp.Single
         /// Copy data to array of floats.
         /// </summary>
         /// <param name="target">The target array.</param>
-        public void CopyTo(float[] target)
+        public override void CopyTo(float[] target)
         {
             int size = Length;
 
@@ -96,7 +96,7 @@ namespace FFTWSharp.Single
         /// Get data as floats.
         /// </summary>
         /// <returns>Array of floats.</returns>
-        public float[] ToArray()
+        public override float[] ToArray()
         {
             int size = Length;
 
