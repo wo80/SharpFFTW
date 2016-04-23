@@ -1,11 +1,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFTWSharpTest", "FFTWSharpTest\FFTWSharpTest.csproj", "{DA20704B-23A7-41A4-B4E2-174A0FED5F3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpFFTWTest", "SharpFFTWTest\SharpFFTWTest.csproj", "{DA20704B-23A7-41A4-B4E2-174A0FED5F3D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BEA875B8-E28A-49C5-8E7E-6512DA65F7E1} = {BEA875B8-E28A-49C5-8E7E-6512DA65F7E1}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFTWSharp", "FFTWSharp\FFTWSharp.csproj", "{BEA875B8-E28A-49C5-8E7E-6512DA65F7E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpFFTW", "SharpFFTW\SharpFFTW.csproj", "{BEA875B8-E28A-49C5-8E7E-6512DA65F7E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
