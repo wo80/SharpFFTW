@@ -1,6 +1,6 @@
 // The code in this file is provided courtesy of Tamas Szalay. Some functionality has been added.
 
-namespace FFTWSharp.Double
+namespace SharpFFTW.Double
 {
     using System;
     using System.Threading;

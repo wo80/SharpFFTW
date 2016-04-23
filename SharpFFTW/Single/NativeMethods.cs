@@ -3,7 +3,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace FFTWSharp.Single
+namespace SharpFFTW.Single
 {
 	/// <summary>
 	/// Contains the basic interface FFTW functions for single-precision (float) operations.

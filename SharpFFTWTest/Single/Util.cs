@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FFTWSharpTest.Single
+namespace SharpFFTWTest.Single
 {
     internal static class Util
     {

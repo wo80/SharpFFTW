@@ -1,5 +1,5 @@
 ﻿
-namespace FFTWSharp.Double
+namespace SharpFFTW.Double
 {
     using System;
     using System.Numerics;

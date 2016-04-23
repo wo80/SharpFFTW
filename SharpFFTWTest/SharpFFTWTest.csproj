@@ -8,8 +8,8 @@
     <ProjectGuid>{DA20704B-23A7-41A4-B4E2-174A0FED5F3D}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FFTWSharpTest</RootNamespace>
-    <AssemblyName>FFTWSharpTest</AssemblyName>
+    <RootNamespace>SharpFFTWTest</RootNamespace>
+    <AssemblyName>SharpFFTWTest</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -57,7 +57,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FFTWSharp\FFTWSharp.csproj">
+    <ProjectReference Include="..\SharpFFTW\SharpFFTW.csproj">
       <Project>{bea875b8-e28a-49c5-8e7e-6512da65f7e1}</Project>
       <Name>FFTWSharp</Name>
     </ProjectReference>

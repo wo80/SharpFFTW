@@ -1,8 +1,8 @@
 ﻿
-namespace FFTWSharpTest.Single
+namespace SharpFFTWTest.Single
 {
-    using FFTWSharp;
-    using FFTWSharp.Single;
+    using SharpFFTW;
+    using SharpFFTW.Single;
     using System;
 
     /// <summary>

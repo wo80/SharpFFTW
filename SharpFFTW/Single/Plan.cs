@@ -1,6 +1,6 @@
 // The code in this file is provided courtesy of Tamas Szalay. Some functionality has been added.
 
-namespace FFTWSharp.Single
+namespace SharpFFTW.Single
 {
     using System;
     using System.Threading;

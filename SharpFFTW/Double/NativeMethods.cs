@@ -3,7 +3,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace FFTWSharp.Double
+namespace SharpFFTW.Double
 {
 	/// <summary>
 	/// Contains the basic interface FFTW functions for double-precision (double) operations.

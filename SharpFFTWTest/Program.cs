@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FFTWSharpTest
+namespace SharpFFTWTest
 {
     class Program
     {

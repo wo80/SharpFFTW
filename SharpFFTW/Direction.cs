@@ -1,5 +1,5 @@
 ﻿
-namespace FFTWSharp
+namespace SharpFFTW
 {
     /// <summary>
     /// Defines direction of operation

@@ -1,5 +1,5 @@
 ﻿
-namespace FFTWSharp
+namespace SharpFFTW
 {
     using System;
     using System.Threading;

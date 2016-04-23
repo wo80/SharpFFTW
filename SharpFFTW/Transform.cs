@@ -1,5 +1,5 @@
 ﻿
-namespace FFTWSharp
+namespace SharpFFTW
 {
     /// <summary>
     /// Kinds of real-to-real transforms
