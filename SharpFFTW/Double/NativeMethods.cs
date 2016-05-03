@@ -359,7 +359,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_export_wisdom_to_filename",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void export_wisdom_to_filename(string filename);
+        public static extern int export_wisdom_to_filename(string filename);
 
 
         /// <summary>
@@ -370,6 +370,6 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_import_wisdom_from_filename",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void import_wisdom_from_filename(string filename);
+        public static extern int import_wisdom_from_filename(string filename);
     }
 }

@@ -18,6 +18,22 @@ namespace SharpFFTW.Single
         {
         }
 
+        /// <summary>
+        /// Export FFTW wisdom to file.
+        /// </summary>
+        public static bool Export(string filename)
+        {
+            return NativeMethods.export_wisdom_to_filename(filename) > 0;
+        }
+
+        /// <summary>
+        /// Import FFTW wisdom from file.
+        /// </summary>
+        public static bool Import(string filename)
+        {
+            return NativeMethods.import_wisdom_from_filename(filename) > 0;
+        }
+
         public override void Execute()
         {
             NativeMethods.execute(handle);
@@ -46,7 +62,7 @@ namespace SharpFFTW.Single
         #region 1D plan creation
 
         /// <summary>
-        /// Create complex transform plan (fftwf_plan_dft_1d).
+        /// Create a 1D complex transform plan (fftwf_plan_dft_1d).
         /// </summary>
         /// <param name="n">The logical size of the transform.</param>
         /// <param name="input">FFTW array of 8-byte complex numbers.</param>
@@ -64,7 +80,7 @@ namespace SharpFFTW.Single
         }
 
         /// <summary>
-        /// Create real to complex transform plan (fftwf_plan_dft_r2c_1d).
+        /// Create a 1D real to complex transform plan (fftwf_plan_dft_r2c_1d).
         /// </summary>
         /// <param name="n">The logical size of the transform.</param>
         /// <param name="input">FFTW array of 4-byte real numbers.</param>
@@ -81,7 +97,7 @@ namespace SharpFFTW.Single
         }
 
         /// <summary>
-        /// Create complex to real transform plan (fftwf_plan_dft_c2r_1d).
+        /// Create a 1D complex to real transform plan (fftwf_plan_dft_c2r_1d).
         /// </summary>
         /// <param name="n">The logical size of the transform.</param>
         /// <param name="input">FFTW array of 8-byte complex numbers.</param>
@@ -98,7 +114,7 @@ namespace SharpFFTW.Single
         }
 
         /// <summary>
-        /// Create real transform plan (fftwf_plan_r2r_1d).
+        /// Create a 1D real transform plan (fftwf_plan_r2r_1d).
         /// </summary>
         /// <param name="n">The logical size of the transform.</param>
         /// <param name="input">FFTW array of 4-byte real numbers.</param>
@@ -120,7 +136,7 @@ namespace SharpFFTW.Single
         #region 2D plan creation
 
         /// <summary>
-        /// Create complex transform plan (fftwf_plan_dft_2d).
+        /// Create a 2D complex transform plan (fftwf_plan_dft_2d).
         /// </summary>
         /// <param name="nx">The logical size of the transform along the first dimension.</param>
         /// <param name="ny">The logical size of the transform along the second dimension.</param>
@@ -139,7 +155,7 @@ namespace SharpFFTW.Single
         }
 
         /// <summary>
-        /// Create real to complex transform plan (fftwf_plan_dft_r2c_2d).
+        /// Create a 2D real to complex transform plan (fftwf_plan_dft_r2c_2d).
         /// </summary>
         /// <param name="nx">The logical size of the transform along the first dimension.</param>
         /// <param name="ny">The logical size of the transform along the second dimension.</param>
@@ -157,7 +173,7 @@ namespace SharpFFTW.Single
         }
 
         /// <summary>
-        /// Create complex to real transform plan (fftwf_plan_dft_c2r_2d).
+        /// Create a 2D complex to real transform plan (fftwf_plan_dft_c2r_2d).
         /// </summary>
         /// <param name="nx">The logical size of the transform along the first dimension.</param>
         /// <param name="ny">The logical size of the transform along the second dimension.</param>
@@ -175,7 +191,7 @@ namespace SharpFFTW.Single
         }
 
         /// <summary>
-        /// Create real transform plan (fftwf_plan_r2r_2d).
+        /// Create a 2D real transform plan (fftwf_plan_r2r_2d).
         /// </summary>
         /// <param name="nx">The logical size of the transform along the first dimension.</param>
         /// <param name="ny">The logical size of the transform along the second dimension.</param>
@@ -199,7 +215,7 @@ namespace SharpFFTW.Single
         #region 3D plan creation
 
         /// <summary>
-        /// Create complex transform plan (fftwf_plan_dft_3d).
+        /// Create a 3D complex transform plan (fftwf_plan_dft_3d).
         /// </summary>
         /// <param name="nx">The logical size of the transform along the first dimension.</param>
         /// <param name="ny">The logical size of the transform along the second dimension.</param>
@@ -219,7 +235,7 @@ namespace SharpFFTW.Single
         }
 
         /// <summary>
-        /// Create real to complex transform plan (fftwf_plan_dft_r2c_3d).
+        /// Create a 3D real to complex transform plan (fftwf_plan_dft_r2c_3d).
         /// </summary>
         /// <param name="nx">The logical size of the transform along the first dimension.</param>
         /// <param name="ny">The logical size of the transform along the second dimension.</param>
@@ -238,7 +254,7 @@ namespace SharpFFTW.Single
         }
 
         /// <summary>
-        /// Create complex to real transform plan (fftwf_plan_dft_c2r_3d).
+        /// Create a 3D complex to real transform plan (fftwf_plan_dft_c2r_3d).
         /// </summary>
         /// <param name="nx">The logical size of the transform along the first dimension.</param>
         /// <param name="ny">The logical size of the transform along the second dimension.</param>
@@ -257,7 +273,7 @@ namespace SharpFFTW.Single
         }
 
         /// <summary>
-        /// Create real transform plan  (fftwf_plan_r2r_3d).
+        /// Create a 3D real transform plan  (fftwf_plan_r2r_3d).
         /// </summary>
         /// <param name="nx">The logical size of the transform along the first dimension.</param>
         /// <param name="ny">The logical size of the transform along the second dimension.</param>
@@ -285,7 +301,7 @@ namespace SharpFFTW.Single
         #region General plan creation
 
         /// <summary>
-        /// Create complex transform plan (fftwf_plan_dft).
+        /// Create a complex transform plan (fftwf_plan_dft).
         /// </summary>
         /// <param name="rank">Number of dimensions.</param>
         /// <param name="n">Array containing the logical size along each dimension.</param>
@@ -304,7 +320,7 @@ namespace SharpFFTW.Single
         }
 
         /// <summary>
-        /// Create real to complex transform plan (fftwf_plan_dft_r2c).
+        /// Create a real to complex transform plan (fftwf_plan_dft_r2c).
         /// </summary>
         /// <param name="rank">Number of dimensions.</param>
         /// <param name="n">Array containing the logical size along each dimension.</param>
@@ -322,7 +338,7 @@ namespace SharpFFTW.Single
         }
 
         /// <summary>
-        /// Create complex to real transform plan (fftwf_plan_dft_c2r).
+        /// Create a complex to real transform plan (fftwf_plan_dft_c2r).
         /// </summary>
         /// <param name="rank">Number of dimensions.</param>
         /// <param name="n">Array containing the logical size along each dimension.</param>
@@ -340,7 +356,7 @@ namespace SharpFFTW.Single
         }
 
         /// <summary>
-        /// Create real transform plan (fftwf_plan_r2r).
+        /// Create a real transform plan (fftwf_plan_r2r).
         /// </summary>
         /// <param name="rank">Number of dimensions.</param>
         /// <param name="n">Array containing the logical size along each dimension.</param>

@@ -86,12 +86,12 @@ namespace SharpFFTW.Single
 		public static extern void execute(IntPtr plan);
 		
 		/// <summary>
-		/// Creates a plan for a 1-dimensional complex-to-complex DFT
+		/// Creates a plan for a 1-dimensional complex-to-complex DFT.
 		/// </summary>
 		/// <param name="n">The logical size of the transform.</param>
-		/// <param name="direction">Specifies the direction of the transform.</param>
 		/// <param name="input">Pointer to an array of 8-byte complex numbers.</param>
 		/// <param name="output">Pointer to an array of 8-byte complex numbers.</param>
+		/// <param name="direction">Specifies the direction of the transform.</param>
 		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftwf_plan_dft_1d",
@@ -101,13 +101,13 @@ namespace SharpFFTW.Single
 			Direction direction, Options flags);
 
 		/// <summary>
-		/// Creates a plan for a 2-dimensional complex-to-complex DFT
+		/// Creates a plan for a 2-dimensional complex-to-complex DFT.
 		/// </summary>
 		/// <param name="nx">The logical size of the transform along the first dimension.</param>
 		/// <param name="ny">The logical size of the transform along the second dimension.</param>
-		/// <param name="direction">Specifies the direction of the transform.</param>
 		/// <param name="input">Pointer to an array of 8-byte complex numbers.</param>
 		/// <param name="output">Pointer to an array of 8-byte complex numbers.</param>
+		/// <param name="direction">Specifies the direction of the transform.</param>
 		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftwf_plan_dft_2d",
@@ -117,14 +117,14 @@ namespace SharpFFTW.Single
 			Direction direction, Options flags);
 
 		/// <summary>
-		/// Creates a plan for a 3-dimensional complex-to-complex DFT
+		/// Creates a plan for a 3-dimensional complex-to-complex DFT.
 		/// </summary>
 		/// <param name="nx">The logical size of the transform along the first dimension.</param>
 		/// <param name="ny">The logical size of the transform along the second dimension.</param>
 		/// <param name="nz">The logical size of the transform along the third dimension.</param>
-		/// <param name="direction">Specifies the direction of the transform.</param>
 		/// <param name="input">Pointer to an array of 8-byte complex numbers.</param>
 		/// <param name="output">Pointer to an array of 8-byte complex numbers.</param>
+		/// <param name="direction">Specifies the direction of the transform.</param>
 		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftwf_plan_dft_3d",
@@ -134,13 +134,13 @@ namespace SharpFFTW.Single
 			Direction direction, Options flags);
 
 		/// <summary>
-		/// Creates a plan for an n-dimensional complex-to-complex DFT
+		/// Creates a plan for an n-dimensional complex-to-complex DFT.
 		/// </summary>
 		/// <param name="rank">Number of dimensions.</param>
 		/// <param name="n">Array containing the logical size along each dimension.</param>
-		/// <param name="direction">Specifies the direction of the transform.</param>
 		/// <param name="input">Pointer to an array of 8-byte complex numbers.</param>
 		/// <param name="output">Pointer to an array of 8-byte complex numbers.</param>
+		/// <param name="direction">Specifies the direction of the transform.</param>
 		/// <param name="flags">Flags that specify the behavior of the planner.</param>
 		[DllImport(Library,
 			 EntryPoint = "fftwf_plan_dft",
@@ -359,7 +359,7 @@ namespace SharpFFTW.Single
              EntryPoint = "fftwf_export_wisdom_to_filename",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void export_wisdom_to_filename(string filename);
+        public static extern int export_wisdom_to_filename(string filename);
 
 
         /// <summary>
@@ -370,6 +370,6 @@ namespace SharpFFTW.Single
              EntryPoint = "fftwf_import_wisdom_from_filename",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void import_wisdom_from_filename(string filename);
+        public static extern int import_wisdom_from_filename(string filename);
     }
 }
