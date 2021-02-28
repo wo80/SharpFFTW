@@ -35,22 +35,27 @@ namespace SharpFFTWTest.Single
             return true;
         }
 
-        public static void WriteResult(bool ok)
+        public static void Write(string message, bool ok)
         {
             var color = Console.ForegroundColor;
 
             if (ok)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("ok");
+                Console.WriteLine(message);
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("failed");
+                Console.WriteLine(message);
             }
 
             Console.ForegroundColor = color;
+        }
+
+        public static void WriteResult(bool ok)
+        {
+            Write(ok ? "ok" : "failed", ok);
         }
     }
 }

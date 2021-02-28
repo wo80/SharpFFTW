@@ -20,8 +20,19 @@ namespace SharpFFTWTest.Single
             Console.WriteLine("Starting native test with FFT size = " + length + " (Type: single)");
             Console.WriteLine();
 
-            Example1(length);
-            Example2(length);
+            try
+            {
+                Example1(length);
+                Example2(length);
+            }
+            catch (BadImageFormatException)
+            {
+                Util.Write("Couldn't load native FFTW image (Type: single)", false);
+            }
+            catch (Exception e)
+            {
+                Util.Write(e.Message, false);
+            }
 
             Console.WriteLine();
         }
