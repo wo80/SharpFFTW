@@ -37,18 +37,18 @@ namespace SharpFFTW
         /// </summary>
         /// <param name="source">The data to copy.</param>
         public abstract void Set(T[] source);
-        
+
         /// <summary>
         /// Set the native memory to zeros.
         /// </summary>
         public abstract void Clear();
-        
+
         /// <summary>
         /// Copy native memory to given array.
         /// </summary>
         /// <param name="target">The target array.</param>
         public abstract void CopyTo(T[] target);
-        
+
         /// <summary>
         /// Returns a managed array containing a copy of the native data.
         /// </summary>
