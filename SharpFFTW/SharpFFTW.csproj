@@ -1,67 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30319</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BEA875B8-E28A-49C5-8E7E-6512DA65F7E1}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SharpFFTW</RootNamespace>
+    <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>SharpFFTW</PackageId>
+    <Summary>SharpFFTW - A lightweight wrapper for native FFTW.</Summary>
+    <Description>SharpFFTW provides lighweight .NET interop for the native fast fourier transform library FFTW.</Description>
+    <Product>SharpFFTW</Product>
+    <Company />
+    <Copyright>Copyright Christian Woltering © 2021</Copyright>
+    <Authors>Christian Woltering</Authors>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <PackageTags>fft fftw fourier transform </PackageTags>
+    <Version>1.1.0</Version>
     <AssemblyName>SharpFFTW</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <RootNamespace>SharpFFTW</RootNamespace>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/wo80/SharpFFTW</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/wo80/SharpFFTW</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
-    <DocumentationFile>bin\Release\SharpFFTW.xml</DocumentationFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Numerics" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AbstractPlan.cs" />
-    <Compile Include="AbstractArray.cs" />
-    <Compile Include="Double\ComplexArray.cs" />
-    <Compile Include="Direction.cs" />
-    <Compile Include="Double\RealArray.cs" />
-    <Compile Include="Options.cs" />
-    <Compile Include="Single\Complex32.cs" />
-    <Compile Include="Single\RealArray.cs" />
-    <Compile Include="Transform.cs" />
-    <Compile Include="Double\NativeMethods.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Double\Plan.cs" />
-    <Compile Include="Single\ComplexArray.cs" />
-    <Compile Include="Single\NativeMethods.cs" />
-    <Compile Include="Single\Plan.cs" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
