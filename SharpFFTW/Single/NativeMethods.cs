@@ -10,7 +10,7 @@ namespace SharpFFTW.Single
     /// </summary>
     public static class NativeMethods
     {
-        private const string Library = "libfftw3f-3";
+        private const string Library = "fftw3f";
 
         /// <summary>
         /// Allocates FFTW-optimized unmanaged memory.

@@ -1,9 +1,9 @@
 SharpFFTW
 ===========
 
-Basic C# wrapper for FFTW.
+A lightweight C# wrapper for native FFTW.
 
-The native libraries are no longer distributed with this project. Go to the [FFTW downloads](http://www.fftw.org/install/windows.html) to get precompiled DLLs for windows. At the moment (Feb 2021), an outdated version 3.3.5 is available for download. To get an up-to-date version, try [conda](https://anaconda.org/conda-forge/fftw/files). Be aware that the DLLs provided in the conda package must be renamed to `libfftw3-3.dll` and `libfftw3f-3.dll` respectively (or alternatively, the library name in both `NativeMethods.cs` files must be adapted).
+The native libraries are no longer distributed with this project. Up-to-date versions can be obtained on [conda](https://anaconda.org/conda-forge/fftw/files). The current conda package (version 3.3.9, Feb 2021) has no SMID features enabled. You can download a custom package with SSE2 enabled [here](http://wo80.bplaced.net/math/packages-fftw.html). For an official (but outdated) package go to the [FFTW downloads](http://www.fftw.org/install/windows.html). Be aware that the DLLs provided in the official package must be renamed to `fftw3.dll` and `fftw3f.dll` respectively (or alternatively, the library names in both `NativeMethods.cs` files can be adapted).
 
 Features
 ============
