@@ -13,7 +13,7 @@ namespace SharpFFTW.Double
         private const string Library = "libfftw3-3";
 
         /// <summary>
-        /// Allocates FFTW-optimized unmanaged memory
+        /// Allocates FFTW-optimized unmanaged memory.
         /// </summary>
         /// <param name="length">Amount to allocate, in bytes.</param>
         /// <returns>Pointer to allocated memory</returns>
@@ -24,7 +24,29 @@ namespace SharpFFTW.Double
         public static extern IntPtr malloc(int length);
 
         /// <summary>
-        /// Deallocates memory allocated by FFTW malloc
+        /// Allocates FFTW-optimized unmanaged memory.
+        /// </summary>
+        /// <param name="length">Amount to allocate.</param>
+        /// <returns>Pointer to allocated memory</returns>
+        [DllImport(Library,
+             EntryPoint = "fftw_alloc_real",
+             ExactSpelling = true,
+             CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr alloc_real(int length);
+
+        /// <summary>
+        /// Allocates FFTW-optimized unmanaged memory.
+        /// </summary>
+        /// <param name="length">Amount to allocate.</param>
+        /// <returns>Pointer to allocated memory</returns>
+        [DllImport(Library,
+             EntryPoint = "fftw_alloc_complex",
+             ExactSpelling = true,
+             CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr alloc_complex(int length);
+
+        /// <summary>
+        /// Deallocates memory allocated by FFTW malloc.
         /// </summary>
         /// <param name="mem">Pointer to memory to release.</param>
         [DllImport(Library,
@@ -34,7 +56,7 @@ namespace SharpFFTW.Double
         public static extern void free(IntPtr mem);
 
         /// <summary>
-        /// Deallocates an FFTW plan and all associated resources
+        /// Deallocates an FFTW plan and all associated resources.
         /// </summary>
         /// <param name="plan">Pointer to the plan to release.</param>
         [DllImport(Library,
@@ -328,7 +350,59 @@ namespace SharpFFTW.Double
             Transform[] kind, Options flags);
 
         /// <summary>
-        /// Returns (approximately) the number of flops used by a certain plan
+        /// Perform any one-time initialization required to use threads.
+        /// </summary>
+        /// <returns>Returns zero if there was some error and a non-zero value otherwise.</returns>
+        [DllImport(Library,
+             EntryPoint = "fftw_init_threads",
+             ExactSpelling = true,
+             CallingConvention = CallingConvention.Cdecl)]
+        public static extern int init_threads();
+
+        /// <summary>
+        /// Sets number of threads for FFTW to use.
+        /// </summary>
+        /// <param name="nthreads">The number of threads.</param>
+        [DllImport(Library,
+             EntryPoint = "fftw_plan_with_nthreads",
+             ExactSpelling = true,
+             CallingConvention = CallingConvention.Cdecl)]
+        public static extern void plan_with_nthreads(int nthreads);
+
+        /// <summary>
+        /// Determines the current number of threads that the planner can use.
+        /// </summary>
+        /// <returns>Number of threads that the planner can use.</returns>
+        [DllImport(Library,
+             EntryPoint = "fftw_planner_nthreads",
+             ExactSpelling = true,
+             CallingConvention = CallingConvention.Cdecl)]
+        public static extern int planner_nthreads();
+
+        /// <summary>
+        /// Cleanup all memory and other resources allocated internally by FFTW.
+        /// </summary>
+        /// <remarks>
+        /// Much like the fftw_cleanup() function except that it also gets rid of threads-related data.
+        /// You must not execute any previously created plans after calling this function.
+        /// </remarks>
+        [DllImport(Library,
+             EntryPoint = "fftw_cleanup_threads",
+             ExactSpelling = true,
+             CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cleanup_threads();
+
+        /// <summary>
+        /// See http://www.fftw.org/fftw3_doc/Thread-safety.html
+        /// </summary>
+        [DllImport(Library,
+             EntryPoint = "fftw_make_planner_thread_safe",
+             ExactSpelling = true,
+             CallingConvention = CallingConvention.Cdecl)]
+        public static extern void make_planner_thread_safe();
+
+        /// <summary>
+        /// Returns (approximately) the number of flops used by a certain plan.
         /// </summary>
         /// <param name="plan">The plan to measure.</param>
         /// <param name="add">Reference to double to hold number of adds.</param>
@@ -339,10 +413,32 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_flops",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void flops(IntPtr plan, ref double add, ref double mul, ref double fma);
+        public static extern void flops(IntPtr plan, out double add, out double mul, out double fma);
 
         /// <summary>
-        /// Outputs a "nerd-readable" version of the specified plan to stdout
+        /// Estimate cost of given plan.
+        /// </summary>
+        /// <param name="plan">Pointer to the plan.</param>
+        /// <returns></returns>
+        [DllImport(Library,
+             EntryPoint = "fftw_estimate_cost",
+             ExactSpelling = true,
+             CallingConvention = CallingConvention.Cdecl)]
+        public static extern double estimate_cost(IntPtr plan);
+
+        /// <summary>
+        /// Get cost of given plan.
+        /// </summary>
+        /// <param name="plan">Pointer to the plan.</param>
+        /// <returns></returns>
+        [DllImport(Library,
+             EntryPoint = "fftw_cost",
+             ExactSpelling = true,
+             CallingConvention = CallingConvention.Cdecl)]
+        public static extern double cost(IntPtr plan);
+
+        /// <summary>
+        /// Outputs a "nerd-readable" version of the specified plan to stdout.
         /// </summary>
         /// <param name="plan">The plan to output.</param>
         [DllImport(Library,
@@ -352,7 +448,17 @@ namespace SharpFFTW.Double
         public static extern void print_plan(IntPtr plan);
 
         /// <summary>
-        /// Exports the accumulated Wisdom to the provided filename
+        /// Outputs a "nerd-readable" version of the specified plan.
+        /// </summary>
+        /// <param name="plan">The plan to output.</param>
+        [DllImport(Library,
+             EntryPoint = "fftw_sprint_plan",
+             ExactSpelling = true,
+             CallingConvention = CallingConvention.Cdecl)]
+        public static extern string sprint_plan(IntPtr plan);
+
+        /// <summary>
+        /// Exports the accumulated Wisdom to the provided filename.
         /// </summary>
         /// <param name="filename">The target filename.</param>
         [DllImport(Library,
@@ -361,9 +467,8 @@ namespace SharpFFTW.Double
              CallingConvention = CallingConvention.Cdecl)]
         public static extern int export_wisdom_to_filename(string filename);
 
-
         /// <summary>
-        /// Imports Wisdom from provided filename
+        /// Imports Wisdom from provided filename.
         /// </summary>
         /// <param name="filename">The filename to read from.</param>
         [DllImport(Library,

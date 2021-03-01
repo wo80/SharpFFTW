@@ -34,11 +34,19 @@ namespace SharpFFTW.Single
             return NativeMethods.import_wisdom_from_filename(filename) > 0;
         }
 
+        /// <inheritdoc />
         public override void Execute()
         {
             NativeMethods.execute(handle);
         }
 
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return NativeMethods.sprint_plan(handle);
+        }
+
+        /// <inheritdoc />
         public override void Dispose(bool disposing)
         {
             if (!hasDisposed)
