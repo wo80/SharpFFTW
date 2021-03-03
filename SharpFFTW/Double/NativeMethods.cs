@@ -349,6 +349,7 @@ namespace SharpFFTW.Double
         public static extern IntPtr fftw_plan_r2r(int rank, int[] n, IntPtr input, IntPtr output,
             Transform[] kind, Options flags);
 
+#if USE_THREADS
         /// <summary>
         /// Perform any one-time initialization required to use threads.
         /// </summary>
@@ -400,6 +401,7 @@ namespace SharpFFTW.Double
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
         public static extern void fftw_make_planner_thread_safe();
+#endif
 
         /// <summary>
         /// Returns (approximately) the number of flops used by a certain plan.
