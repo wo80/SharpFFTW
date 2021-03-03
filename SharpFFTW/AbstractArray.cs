@@ -59,6 +59,7 @@ namespace SharpFFTW
 
         protected bool hasDisposed = false;
 
+        /// <inheritdoc />
         public void Dispose()
         {
             Dispose(true);

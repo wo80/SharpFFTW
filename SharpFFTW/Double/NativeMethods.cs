@@ -21,7 +21,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_malloc",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr malloc(int length);
+        public static extern IntPtr fftw_malloc(int length);
 
         /// <summary>
         /// Allocates FFTW-optimized unmanaged memory.
@@ -32,7 +32,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_alloc_real",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr alloc_real(int length);
+        public static extern IntPtr fftw_alloc_real(int length);
 
         /// <summary>
         /// Allocates FFTW-optimized unmanaged memory.
@@ -43,7 +43,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_alloc_complex",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr alloc_complex(int length);
+        public static extern IntPtr fftw_alloc_complex(int length);
 
         /// <summary>
         /// Deallocates memory allocated by FFTW malloc.
@@ -53,7 +53,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_free",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void free(IntPtr mem);
+        public static extern void fftw_free(IntPtr mem);
 
         /// <summary>
         /// Deallocates an FFTW plan and all associated resources.
@@ -63,7 +63,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_destroy_plan",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void destroy_plan(IntPtr plan);
+        public static extern void fftw_destroy_plan(IntPtr plan);
 
         /// <summary>
         /// Clears all memory used by FFTW, resets it to initial state. Does not replace destroy_plan and free
@@ -76,7 +76,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_cleanup",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cleanup();
+        public static extern void fftw_cleanup();
 
         /// <summary>
         /// Sets the maximum time that can be used by the planner.
@@ -94,7 +94,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_set_timelimit",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void set_timelimit(double seconds);
+        public static extern void fftw_set_timelimit(double seconds);
 
         /// <summary>
         /// Executes an FFTW plan, provided that the input and output arrays still exist
@@ -105,7 +105,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_execute",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void execute(IntPtr plan);
+        public static extern void fftw_execute(IntPtr plan);
 
         /// <summary>
         /// Creates a plan for a 1-dimensional complex-to-complex DFT.
@@ -119,7 +119,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_dft_1d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_1d(int n, IntPtr input, IntPtr output,
+        public static extern IntPtr fftw_plan_dft_1d(int n, IntPtr input, IntPtr output,
             Direction direction, Options flags);
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_dft_2d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_2d(int nx, int ny, IntPtr input, IntPtr output,
+        public static extern IntPtr fftw_plan_dft_2d(int nx, int ny, IntPtr input, IntPtr output,
             Direction direction, Options flags);
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_dft_3d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_3d(int nx, int ny, int nz, IntPtr input, IntPtr output,
+        public static extern IntPtr fftw_plan_dft_3d(int nx, int ny, int nz, IntPtr input, IntPtr output,
             Direction direction, Options flags);
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_dft",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft(int rank, int[] n, IntPtr input, IntPtr output,
+        public static extern IntPtr fftw_plan_dft(int rank, int[] n, IntPtr input, IntPtr output,
             Direction direction, Options flags);
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_dft_r2c_1d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_r2c_1d(int n, IntPtr input, IntPtr output, Options flags);
+        public static extern IntPtr fftw_plan_dft_r2c_1d(int n, IntPtr input, IntPtr output, Options flags);
 
         /// <summary>
         /// Creates a plan for a 2-dimensional real-to-complex DFT
@@ -196,7 +196,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_dft_r2c_2d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_r2c_2d(int nx, int ny, IntPtr input, IntPtr output, Options flags);
+        public static extern IntPtr fftw_plan_dft_r2c_2d(int nx, int ny, IntPtr input, IntPtr output, Options flags);
 
         /// <summary>
         /// Creates a plan for a 3-dimensional real-to-complex DFT
@@ -211,7 +211,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_dft_r2c_3d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_r2c_3d(int nx, int ny, int nz, IntPtr input, IntPtr output, Options flags);
+        public static extern IntPtr fftw_plan_dft_r2c_3d(int nx, int ny, int nz, IntPtr input, IntPtr output, Options flags);
 
         /// <summary>
         /// Creates a plan for an n-dimensional real-to-complex DFT
@@ -225,7 +225,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_dft_r2c",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_r2c(int rank, int[] n, IntPtr input, IntPtr output, Options flags);
+        public static extern IntPtr fftw_plan_dft_r2c(int rank, int[] n, IntPtr input, IntPtr output, Options flags);
 
         /// <summary>
         /// Creates a plan for a 1-dimensional complex-to-real DFT
@@ -238,7 +238,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_dft_c2r_1d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_c2r_1d(int n, IntPtr input, IntPtr output, Options flags);
+        public static extern IntPtr fftw_plan_dft_c2r_1d(int n, IntPtr input, IntPtr output, Options flags);
 
         /// <summary>
         /// Creates a plan for a 2-dimensional complex-to-real DFT
@@ -252,7 +252,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_dft_c2r_2d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_c2r_2d(int nx, int ny, IntPtr input, IntPtr output, Options flags);
+        public static extern IntPtr fftw_plan_dft_c2r_2d(int nx, int ny, IntPtr input, IntPtr output, Options flags);
 
         /// <summary>
         /// Creates a plan for a 3-dimensional complex-to-real DFT
@@ -267,7 +267,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_dft_c2r_3d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_c2r_3d(int nx, int ny, int nz, IntPtr input, IntPtr output, Options flags);
+        public static extern IntPtr fftw_plan_dft_c2r_3d(int nx, int ny, int nz, IntPtr input, IntPtr output, Options flags);
 
         /// <summary>
         /// Creates a plan for an n-dimensional complex-to-real DFT
@@ -281,7 +281,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_dft_c2r",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_dft_c2r(int rank, int[] n, IntPtr input, IntPtr output, Options flags);
+        public static extern IntPtr fftw_plan_dft_c2r(int rank, int[] n, IntPtr input, IntPtr output, Options flags);
 
         /// <summary>
         /// Creates a plan for a 1-dimensional real-to-real DFT
@@ -295,7 +295,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_r2r_1d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_r2r_1d(int n, IntPtr input, IntPtr output, Transform kind, Options flags);
+        public static extern IntPtr fftw_plan_r2r_1d(int n, IntPtr input, IntPtr output, Transform kind, Options flags);
 
         /// <summary>
         /// Creates a plan for a 2-dimensional real-to-real DFT
@@ -311,7 +311,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_r2r_2d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_r2r_2d(int nx, int ny, IntPtr input, IntPtr output,
+        public static extern IntPtr fftw_plan_r2r_2d(int nx, int ny, IntPtr input, IntPtr output,
             Transform kindx, Transform kindy, Options flags);
 
         /// <summary>
@@ -330,7 +330,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_r2r_3d",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_r2r_3d(int nx, int ny, int nz, IntPtr input, IntPtr output,
+        public static extern IntPtr fftw_plan_r2r_3d(int nx, int ny, int nz, IntPtr input, IntPtr output,
             Transform kindx, Transform kindy, Transform kindz, Options flags);
 
         /// <summary>
@@ -346,7 +346,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_r2r",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr plan_r2r(int rank, int[] n, IntPtr input, IntPtr output,
+        public static extern IntPtr fftw_plan_r2r(int rank, int[] n, IntPtr input, IntPtr output,
             Transform[] kind, Options flags);
 
         /// <summary>
@@ -357,7 +357,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_init_threads",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern int init_threads();
+        public static extern int fftw_init_threads();
 
         /// <summary>
         /// Sets number of threads for FFTW to use.
@@ -367,7 +367,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_plan_with_nthreads",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void plan_with_nthreads(int nthreads);
+        public static extern void fftw_plan_with_nthreads(int nthreads);
 
         /// <summary>
         /// Determines the current number of threads that the planner can use.
@@ -377,7 +377,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_planner_nthreads",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern int planner_nthreads();
+        public static extern int fftw_planner_nthreads();
 
         /// <summary>
         /// Cleanup all memory and other resources allocated internally by FFTW.
@@ -390,7 +390,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_cleanup_threads",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cleanup_threads();
+        public static extern void fftw_cleanup_threads();
 
         /// <summary>
         /// See http://www.fftw.org/fftw3_doc/Thread-safety.html
@@ -399,7 +399,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_make_planner_thread_safe",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void make_planner_thread_safe();
+        public static extern void fftw_make_planner_thread_safe();
 
         /// <summary>
         /// Returns (approximately) the number of flops used by a certain plan.
@@ -413,7 +413,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_flops",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void flops(IntPtr plan, out double add, out double mul, out double fma);
+        public static extern void fftw_flops(IntPtr plan, out double add, out double mul, out double fma);
 
         /// <summary>
         /// Estimate cost of given plan.
@@ -445,7 +445,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_print_plan",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern void print_plan(IntPtr plan);
+        public static extern void fftw_print_plan(IntPtr plan);
 
         /// <summary>
         /// Outputs a "nerd-readable" version of the specified plan.
@@ -455,7 +455,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_sprint_plan",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern string sprint_plan(IntPtr plan);
+        public static extern string fftw_sprint_plan(IntPtr plan);
 
         /// <summary>
         /// Exports the accumulated Wisdom to the provided filename.
@@ -465,7 +465,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_export_wisdom_to_filename",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern int export_wisdom_to_filename(string filename);
+        public static extern int fftw_export_wisdom_to_filename(string filename);
 
         /// <summary>
         /// Imports Wisdom from provided filename.
@@ -475,6 +475,6 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_import_wisdom_from_filename",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        public static extern int import_wisdom_from_filename(string filename);
+        public static extern int fftw_import_wisdom_from_filename(string filename);
     }
 }

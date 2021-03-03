@@ -21,7 +21,7 @@ namespace SharpFFTW.Single
         public ComplexArray(int length)
             : base(length)
         {
-            Handle = NativeMethods.malloc(this.Length * SIZE);
+            Handle = NativeMethods.fftwf_malloc(this.Length * SIZE);
         }
 
         /// <summary>
@@ -44,13 +44,14 @@ namespace SharpFFTW.Single
             this.Set(data);
         }
 
+        /// <inheritdoc />
         public override void Dispose(bool disposing)
         {
             if (!hasDisposed)
             {
                 if (Handle != IntPtr.Zero)
                 {
-                    NativeMethods.free(Handle);
+                    NativeMethods.fftwf_free(Handle);
                     Handle = IntPtr.Zero;
                 }
             }

@@ -23,7 +23,7 @@ namespace SharpFFTW.Double
         /// </summary>
         public static bool Export(string filename)
         {
-            return NativeMethods.export_wisdom_to_filename(filename) > 0;
+            return NativeMethods.fftw_export_wisdom_to_filename(filename) > 0;
         }
 
         /// <summary>
@@ -31,19 +31,19 @@ namespace SharpFFTW.Double
         /// </summary>
         public static bool Import(string filename)
         {
-            return NativeMethods.import_wisdom_from_filename(filename) > 0;
+            return NativeMethods.fftw_import_wisdom_from_filename(filename) > 0;
         }
 
         /// <inheritdoc />
         public override void Execute()
         {
-            NativeMethods.execute(handle);
+            NativeMethods.fftw_execute(handle);
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return NativeMethods.sprint_plan(handle);
+            return NativeMethods.fftw_sprint_plan(handle);
         }
 
         /// <inheritdoc />
@@ -53,7 +53,7 @@ namespace SharpFFTW.Double
             {
                 if (handle != IntPtr.Zero)
                 {
-                    NativeMethods.destroy_plan(handle);
+                    NativeMethods.fftw_destroy_plan(handle);
                     handle = IntPtr.Zero;
                 }
 
@@ -81,7 +81,7 @@ namespace SharpFFTW.Double
         public static Plan Create1(int n, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_1d(n, input.Handle, output.Handle, direction, flags);
+            var handle = NativeMethods.fftw_plan_dft_1d(n, input.Handle, output.Handle, direction, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -98,7 +98,7 @@ namespace SharpFFTW.Double
         public static Plan Create1(int n, RealArray input, ComplexArray output, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_r2c_1d(n, input.Handle, output.Handle, flags);
+            var handle = NativeMethods.fftw_plan_dft_r2c_1d(n, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -115,7 +115,7 @@ namespace SharpFFTW.Double
         public static Plan Create1(int n, ComplexArray input, RealArray output, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_c2r_1d(n, input.Handle, output.Handle, flags);
+            var handle = NativeMethods.fftw_plan_dft_c2r_1d(n, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -133,7 +133,7 @@ namespace SharpFFTW.Double
         public static Plan Create1(int n, RealArray input, RealArray output, Transform kind, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_r2r_1d(n, input.Handle, output.Handle, kind, flags);
+            var handle = NativeMethods.fftw_plan_r2r_1d(n, input.Handle, output.Handle, kind, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -156,7 +156,7 @@ namespace SharpFFTW.Double
         public static Plan Create2(int nx, int ny, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_2d(nx, ny, input.Handle, output.Handle, direction, flags);
+            var handle = NativeMethods.fftw_plan_dft_2d(nx, ny, input.Handle, output.Handle, direction, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -174,7 +174,7 @@ namespace SharpFFTW.Double
         public static Plan Create2(int nx, int ny, RealArray input, ComplexArray output, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_r2c_2d(nx, ny, input.Handle, output.Handle, flags);
+            var handle = NativeMethods.fftw_plan_dft_r2c_2d(nx, ny, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -192,7 +192,7 @@ namespace SharpFFTW.Double
         public static Plan Create2(int nx, int ny, ComplexArray input, RealArray output, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_c2r_2d(nx, ny, input.Handle, output.Handle, flags);
+            var handle = NativeMethods.fftw_plan_dft_c2r_2d(nx, ny, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -212,7 +212,7 @@ namespace SharpFFTW.Double
         public static Plan Create2(int nx, int ny, RealArray input, RealArray output, Transform kindx, Transform kindy, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_r2r_2d(nx, ny, input.Handle, output.Handle, kindx, kindy, flags);
+            var handle = NativeMethods.fftw_plan_r2r_2d(nx, ny, input.Handle, output.Handle, kindx, kindy, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -236,7 +236,7 @@ namespace SharpFFTW.Double
         public static Plan Create3(int nx, int ny, int nz, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_3d(nx, ny, nz, input.Handle, output.Handle, direction, flags);
+            var handle = NativeMethods.fftw_plan_dft_3d(nx, ny, nz, input.Handle, output.Handle, direction, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -255,7 +255,7 @@ namespace SharpFFTW.Double
         public static Plan Create3(int nx, int ny, int nz, RealArray input, ComplexArray output, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_r2c_3d(nx, ny, nz, input.Handle, output.Handle, flags);
+            var handle = NativeMethods.fftw_plan_dft_r2c_3d(nx, ny, nz, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -274,7 +274,7 @@ namespace SharpFFTW.Double
         public static Plan Create3(int nx, int ny, int nz, ComplexArray input, RealArray output, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_c2r_3d(nx, ny, nz, input.Handle, output.Handle, flags);
+            var handle = NativeMethods.fftw_plan_dft_c2r_3d(nx, ny, nz, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -297,7 +297,7 @@ namespace SharpFFTW.Double
             Transform kindx, Transform kindy, Transform kindz, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_r2r_3d(nx, ny, nz, input.Handle, output.Handle,
+            var handle = NativeMethods.fftw_plan_r2r_3d(nx, ny, nz, input.Handle, output.Handle,
                 kindx, kindy, kindz, flags);
             mutex.ReleaseMutex();
 
@@ -321,7 +321,7 @@ namespace SharpFFTW.Double
         public static Plan Create(int rank, int[] n, ComplexArray input, ComplexArray output, Direction direction, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_dft(rank, n, input.Handle, output.Handle, direction, flags);
+            var handle = NativeMethods.fftw_plan_dft(rank, n, input.Handle, output.Handle, direction, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -339,7 +339,7 @@ namespace SharpFFTW.Double
         public static Plan Create(int rank, int[] n, RealArray input, ComplexArray output, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_r2c(rank, n, input.Handle, output.Handle, flags);
+            var handle = NativeMethods.fftw_plan_dft_r2c(rank, n, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -357,7 +357,7 @@ namespace SharpFFTW.Double
         public static Plan Create(int rank, int[] n, ComplexArray input, RealArray output, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_dft_c2r(rank, n, input.Handle, output.Handle, flags);
+            var handle = NativeMethods.fftw_plan_dft_c2r(rank, n, input.Handle, output.Handle, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
@@ -376,7 +376,7 @@ namespace SharpFFTW.Double
         public static Plan Create(int rank, int[] n, RealArray input, RealArray output, Transform[] kind, Options flags)
         {
             mutex.WaitOne();
-            var handle = NativeMethods.plan_r2r(rank, n, input.Handle, output.Handle, kind, flags);
+            var handle = NativeMethods.fftw_plan_r2r(rank, n, input.Handle, output.Handle, kind, flags);
             mutex.ReleaseMutex();
 
             return new Plan(handle, input, output, false);
