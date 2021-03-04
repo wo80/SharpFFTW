@@ -1,5 +1,4 @@
 # SharpFFTW
-===========
 
 A lightweight C# wrapper for native FFTW.
 
