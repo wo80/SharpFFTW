@@ -11,7 +11,7 @@ namespace fftbench
         {
             if (!GetCommandLine(args, out int size, out int repeat))
             {
-                Console.WriteLine("fftbench-cli [size] [repeat]");
+                Console.WriteLine("fftbench [size] [repeat]");
                 Console.WriteLine();
                 Console.WriteLine("Parameters:");
                 Console.WriteLine("   size    FFT size (6-14, default: 12)");
