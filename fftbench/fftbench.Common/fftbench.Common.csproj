@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Copyright>Copyright © Christian Woltering 2016-2021</Copyright>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <PackageIcon></PackageIcon>
+    <Authors>Christian Woltering</Authors>
+    <OutDir>$(ProjectDir)..\bin\$(Configuration)</OutDir>
+    <RootNamespace>fftbench</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Accord" Version="3.8.0" />
+    <PackageReference Include="Accord.Math" Version="3.8.0" />
+    <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
+    <PackageReference Include="NAudio.Core" Version="2.0.0" />
+    <PackageReference Include="NWaves" Version="0.9.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharpFFTW\SharpFFTW.csproj" />
+    <ProjectReference Include="..\Exocortex.DSP\Exocortex.DSP.csproj" />
+  </ItemGroup>
+
+</Project>
