@@ -16,7 +16,7 @@ namespace SharpFFTW.Tests.Single
             return data;
         }
 
-        public static bool CheckResults(int n, int scale, float[] data, double eps = 1e-3)
+        public static void CheckResults(int n, int scale, float[] data, double eps = 1e-3)
         {
             for (int i = 0; i < n; i++)
             {
@@ -26,13 +26,14 @@ namespace SharpFFTW.Tests.Single
                 // Check against original value.
                 if (double.IsNaN(result) || Math.Abs(result - (i % 50)) > eps)
                 {
-                    return false;
+                    Write("failed", false);
+                    return;
                 }
             }
 
             // Yeah, alright. So this was kind of a trivial test and of course
             // it's gonna work. But still.
-            return true;
+            Write("ok", true);
         }
 
         public static void Write(string message, bool ok)
@@ -51,11 +52,6 @@ namespace SharpFFTW.Tests.Single
             }
 
             Console.ForegroundColor = color;
-        }
-
-        public static void WriteResult(bool ok)
-        {
-            Write(ok ? "ok" : "failed", ok);
         }
     }
 }

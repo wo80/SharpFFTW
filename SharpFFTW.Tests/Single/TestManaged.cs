@@ -8,7 +8,7 @@ namespace SharpFFTW.Tests.Single
     /// <summary>
     /// Test managed FFTW interface (1D).
     /// </summary>
-    public class TestManaged1
+    public class TestManaged
     {
         /// <summary>
         /// Run examples.
