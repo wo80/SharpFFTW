@@ -73,9 +73,7 @@ namespace SharpFFTW.Tests.Single
             Marshal.Copy(pin, fin, 0, size);
 
             // Check and see how we did.
-            bool ok = Util.CheckResults(length, length, fin);
-
-            Util.WriteResult(ok);
+            Util.CheckResults(length, length, fin);
 
             // Don't forget to free the memory after finishing.
             NativeMethods.fftwf_free(pin);
@@ -118,9 +116,7 @@ namespace SharpFFTW.Tests.Single
             NativeMethods.fftwf_execute(plan2);
 
             // Check and see how we did.
-            bool ok = Util.CheckResults(length, length, fin);
-
-            Util.WriteResult(ok);
+            Util.CheckResults(length, length, fin);
 
             // Don't forget to free the memory after finishing.
             NativeMethods.fftwf_destroy_plan(plan1);

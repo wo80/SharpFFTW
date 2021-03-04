@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharpFFTWTest
+namespace SharpFFTW.Tests
 {
     class Program
     {
@@ -8,11 +8,11 @@ namespace SharpFFTWTest
 
         static void Main(string[] args)
         {
-            Double.TestNative1.Run(FFT_SIZE);
-            Double.TestManaged1.Run(FFT_SIZE);
+            Double.TestNative.Run(FFT_SIZE);
+            Double.TestManaged.Run(FFT_SIZE);
 
-            Single.TestNative1.Run(FFT_SIZE);
-            Single.TestManaged1.Run(FFT_SIZE);
+            Single.TestNative.Run(FFT_SIZE);
+            Single.TestManaged.Run(FFT_SIZE);
 
             Console.WriteLine("\nDone. Press any key to exit.");
             Console.ReadLine();

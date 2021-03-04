@@ -69,9 +69,7 @@ namespace SharpFFTW.Tests.Double
             input.CopyTo(data);
 
             // Check and see how we did.
-            bool ok = Util.CheckResults(length, length, data);
-
-            Util.WriteResult(ok);
+            Util.CheckResults(length, length, data);
         }
 
         /// <summary>
@@ -105,9 +103,7 @@ namespace SharpFFTW.Tests.Double
             input.CopyTo(data);
 
             // Check and see how we did.
-            bool ok = Util.CheckResults(n, n, data);
-
-            Util.WriteResult(ok);
+            Util.CheckResults(n, n, data);
         }
 
         /// <summary>
@@ -141,9 +137,7 @@ namespace SharpFFTW.Tests.Double
             input.CopyTo(data);
 
             // Check and see how we did.
-            bool ok = Util.CheckResults(n, n, data);
-
-            Util.WriteResult(ok);
+            Util.CheckResults(n, n, data);
         }
     }
 }
