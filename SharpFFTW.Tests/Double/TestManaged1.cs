@@ -1,5 +1,5 @@
 ﻿
-namespace SharpFFTWTest.Double
+namespace SharpFFTW.Tests.Double
 {
     using SharpFFTW;
     using SharpFFTW.Double;

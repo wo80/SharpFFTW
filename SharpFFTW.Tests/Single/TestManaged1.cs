@@ -1,5 +1,5 @@
 ﻿
-namespace SharpFFTWTest.Single
+namespace SharpFFTW.Tests.Single
 {
     using SharpFFTW;
     using SharpFFTW.Single;

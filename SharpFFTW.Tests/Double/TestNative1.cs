@@ -1,8 +1,8 @@
 ﻿
-namespace SharpFFTWTest.Single
+namespace SharpFFTW.Tests.Double
 {
     using SharpFFTW;
-    using SharpFFTW.Single;
+    using SharpFFTW.Double;
     using System;
     using System.Runtime.InteropServices;
 
@@ -17,7 +17,7 @@ namespace SharpFFTWTest.Single
         /// <param name="length">Logical size of the transform.</param>
         public static void Run(int length)
         {
-            Console.WriteLine("Starting native test with FFT size = " + length + " (Type: single)");
+            Console.WriteLine("Starting native test with FFT size = " + length + " (Type: double)");
             Console.WriteLine();
 
             try
@@ -27,7 +27,7 @@ namespace SharpFFTWTest.Single
             }
             catch (BadImageFormatException)
             {
-                Util.Write("Couldn't load native FFTW image (Type: single)", false);
+                Util.Write("Couldn't load native FFTW image (Type: double)", false);
             }
             catch (Exception e)
             {
@@ -50,8 +50,8 @@ namespace SharpFFTWTest.Single
             int size = 2 * length;
 
             // Create two unmanaged arrays, properly aligned.
-            IntPtr pin = NativeMethods.fftwf_malloc(size * sizeof(float));
-            IntPtr pout = NativeMethods.fftwf_malloc(size * sizeof(float));
+            IntPtr pin = NativeMethods.fftw_malloc(size * sizeof(double));
+            IntPtr pout = NativeMethods.fftw_malloc(size * sizeof(double));
 
             // Create managed input arrays, possibly misalinged.
             var fin = Util.GenerateSignal(size);
@@ -60,11 +60,11 @@ namespace SharpFFTWTest.Single
             Marshal.Copy(fin, 0, pin, size);
 
             // Create test transforms (forward and backward).
-            IntPtr plan1 = NativeMethods.fftwf_plan_dft_1d(length, pin, pout, Direction.Forward, Options.Estimate);
-            IntPtr plan2 = NativeMethods.fftwf_plan_dft_1d(length, pout, pin, Direction.Backward, Options.Estimate);
+            IntPtr plan1 = NativeMethods.fftw_plan_dft_1d(length, pin, pout, Direction.Forward, Options.Estimate);
+            IntPtr plan2 = NativeMethods.fftw_plan_dft_1d(length, pout, pin, Direction.Backward, Options.Estimate);
 
-            NativeMethods.fftwf_execute(plan1); // Forward.
-            NativeMethods.fftwf_execute(plan2); // Backward.
+            NativeMethods.fftw_execute(plan1); // Forward.
+            NativeMethods.fftw_execute(plan2); // Backward.
 
             // Clear input array (technically not necessary).
             Array.Clear(fin, 0, fin.Length);
@@ -78,10 +78,10 @@ namespace SharpFFTWTest.Single
             Util.WriteResult(ok);
 
             // Don't forget to free the memory after finishing.
-            NativeMethods.fftwf_free(pin);
-            NativeMethods.fftwf_free(pout);
-            NativeMethods.fftwf_destroy_plan(plan1);
-            NativeMethods.fftwf_destroy_plan(plan2);
+            NativeMethods.fftw_free(pin);
+            NativeMethods.fftw_free(pout);
+            NativeMethods.fftw_destroy_plan(plan1);
+            NativeMethods.fftw_destroy_plan(plan2);
         }
 
         static void Example2(int length)
@@ -96,7 +96,7 @@ namespace SharpFFTWTest.Single
 
             // Create two managed arrays, possibly misalinged.
             var fin = Util.GenerateSignal(size);
-            var fout = new float[size];
+            var fout = new double[size];
 
             // Get handles and pin arrays so the GC doesn't move them
             var hin = GCHandle.Alloc(fin, GCHandleType.Pinned);
@@ -107,15 +107,15 @@ namespace SharpFFTWTest.Single
             IntPtr mout = hout.AddrOfPinnedObject();
 
             // Create test transforms (forward and backward).
-            IntPtr plan1 = NativeMethods.fftwf_plan_dft_1d(length, min, mout, Direction.Forward, Options.Estimate);
-            IntPtr plan2 = NativeMethods.fftwf_plan_dft_1d(length, mout, min, Direction.Backward, Options.Estimate);
+            IntPtr plan1 = NativeMethods.fftw_plan_dft_1d(length, min, mout, Direction.Forward, Options.Estimate);
+            IntPtr plan2 = NativeMethods.fftw_plan_dft_1d(length, mout, min, Direction.Backward, Options.Estimate);
 
-            NativeMethods.fftwf_execute(plan1);
+            NativeMethods.fftw_execute(plan1);
 
             // Clear input array and try to refill it from a backwards FFT.
             Array.Clear(fin, 0, size);
 
-            NativeMethods.fftwf_execute(plan2);
+            NativeMethods.fftw_execute(plan2);
 
             // Check and see how we did.
             bool ok = Util.CheckResults(length, length, fin);
@@ -123,8 +123,8 @@ namespace SharpFFTWTest.Single
             Util.WriteResult(ok);
 
             // Don't forget to free the memory after finishing.
-            NativeMethods.fftwf_destroy_plan(plan1);
-            NativeMethods.fftwf_destroy_plan(plan2);
+            NativeMethods.fftw_destroy_plan(plan1);
+            NativeMethods.fftw_destroy_plan(plan2);
 
             hin.Free();
             hout.Free();
