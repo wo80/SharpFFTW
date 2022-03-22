@@ -3,6 +3,7 @@
 namespace SharpFFTW.Double
 {
     using System;
+    using System.Runtime.InteropServices;
     using System.Threading;
 
     /// <summary>
@@ -43,7 +44,10 @@ namespace SharpFFTW.Double
         /// <inheritdoc />
         public override string ToString()
         {
-            return NativeMethods.fftw_sprint_plan(handle);
+            // NOTE: this leaks native memory, since the returned char* pointer isn't free'd.
+            var p = NativeMethods.fftw_sprint_plan(handle);
+
+            return Marshal.PtrToStringAnsi(p);
         }
 
         /// <inheritdoc />

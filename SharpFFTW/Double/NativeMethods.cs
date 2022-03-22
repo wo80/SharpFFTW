@@ -457,8 +457,7 @@ namespace SharpFFTW.Double
              EntryPoint = "fftw_sprint_plan",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string fftw_sprint_plan(IntPtr plan);
+        public static extern IntPtr fftw_sprint_plan(IntPtr plan);
 
         /// <summary>
         /// Exports the accumulated Wisdom to the provided filename.
