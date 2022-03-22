@@ -457,6 +457,7 @@ namespace SharpFFTW.Single
              EntryPoint = "fftwf_sprint_plan",
              ExactSpelling = true,
              CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.LPStr)]
         public static extern string fftwf_sprint_plan(IntPtr plan);
 
         /// <summary>

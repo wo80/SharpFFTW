@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Copyright>Copyright © Christian Woltering 2016-2021</Copyright>
+    <Copyright>Copyright © Christian Woltering 2016-2022</Copyright>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
     <PackageIcon></PackageIcon>
@@ -16,7 +16,7 @@
     <PackageReference Include="Accord.Math" Version="3.8.0" />
     <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
     <PackageReference Include="NAudio.Core" Version="2.0.0" />
-    <PackageReference Include="NWaves" Version="0.9.4" />
+    <PackageReference Include="NWaves" Version="0.9.6" />
   </ItemGroup>
 
   <ItemGroup>
