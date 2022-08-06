@@ -1,12 +1,36 @@
 ﻿
 namespace fftbench.Benchmark
 {
+    using MathNet.Numerics;
     using MathNet.Numerics.IntegralTransforms;
 
     public class TestMathNet : BaseTest
     {
+        public bool UseMKL { get; set; }
+
+        private bool ProviderConfigured { get; set; }
+
+        private void ConfigureProvider()
+        {
+            if (!ProviderConfigured)
+            {
+                if (UseMKL)
+                {
+                    Control.UseNativeMKL();
+                }
+                else
+                {
+                    Control.UseManaged();
+                }
+
+                ProviderConfigured = true;
+            }
+        }
+
         public override void FFT(bool forward)
         {
+            ConfigureProvider();
+
             data.CopyTo(copy, 0);
 
             if (forward)
@@ -21,6 +45,8 @@ namespace fftbench.Benchmark
 
         public override double[] Spectrum(double[] input, bool scale)
         {
+            ConfigureProvider();
+
             var data = ToComplex(input);
 
             Fourier.Forward(data, FourierOptions.Default);
@@ -36,7 +62,7 @@ namespace fftbench.Benchmark
 
         public override string ToString()
         {
-            return "Math.NET";
+            return UseMKL ? "Math.NET+MKL" : "Math.NET";
         }
     }
 }
