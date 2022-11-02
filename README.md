@@ -12,7 +12,7 @@ The native libraries are no longer distributed with this project. Up-to-date ver
 
 ## FFT benchmark
 
-The FFT benchmark `fftbench` compares a selection of managed libraries ([Accord](http://accord-framework.net/), [AForge](http://www.aforgenet.com/framework/), [Exocortex](http://www.exocortex.org/dsp/), [Lomont](https://www.lomont.org/Software/index.php), [MathNet](https://numerics.mathdotnet.com/), [NAudio](https://github.com/naudio/NAudio), [NWaves](https://github.com/ar1st0crat/NWaves)) with FFTW. The benchmark was originally written for a CodeProject article [Comparison of FFT Implementations for .NET](https://www.codeproject.com/Articles/1095473/Comparison-of-FFT-Implementations-for-NET). Here's an example output. The first column displays the relative speedup (slowdown) compared to `Exocortex`:
+The FFT benchmark `fftbench` compares a selection of managed libraries ([Accord](http://accord-framework.net/), [Exocortex](http://www.exocortex.org/dsp/), [Lomont](https://www.lomont.org/software/), [MathNet](https://numerics.mathdotnet.com/), [NAudio](https://github.com/naudio/NAudio), [NWaves](https://github.com/ar1st0crat/NWaves)) with FFTW. The benchmark was originally written for a CodeProject article [Comparison of FFT Implementations for .NET](https://www.codeproject.com/Articles/1095473/Comparison-of-FFT-Implementations-for-NET). Here's an example output. The first column displays the relative speedup (slowdown) compared to `Exocortex`:
 
 ```
 FFT size: 2^12 (4096)

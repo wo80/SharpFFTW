@@ -53,7 +53,7 @@ namespace SharpFFTW.Tests.Double
             IntPtr pin = NativeMethods.fftw_malloc(size * sizeof(double));
             IntPtr pout = NativeMethods.fftw_malloc(size * sizeof(double));
 
-            // Create managed input arrays, possibly misalinged.
+            // Create managed input arrays, possibly misaligned.
             var fin = Util.GenerateSignal(size);
 
             // Copy managed input array to unmanaged input array.
@@ -63,13 +63,16 @@ namespace SharpFFTW.Tests.Double
             IntPtr plan1 = NativeMethods.fftw_plan_dft_1d(length, pin, pout, Direction.Forward, Options.Estimate);
             IntPtr plan2 = NativeMethods.fftw_plan_dft_1d(length, pout, pin, Direction.Backward, Options.Estimate);
 
+            NativeMethods.fftw_print_plan(plan1);
+            NativeMethods.fftw_print_plan(plan2);
+
             NativeMethods.fftw_execute(plan1); // Forward.
             NativeMethods.fftw_execute(plan2); // Backward.
 
             // Clear input array (technically not necessary).
             Array.Clear(fin, 0, fin.Length);
 
-            // Copy unmanaged output of back-tranform to managed array (overwriting input array).
+            // Copy unmanaged output of back-transform to managed array (overwriting input array).
             Marshal.Copy(pin, fin, 0, size);
 
             // Check and see how we did.
@@ -92,7 +95,7 @@ namespace SharpFFTW.Tests.Double
             // Size is 2 * n because we are dealing with complex numbers.
             int size = 2 * length;
 
-            // Create two managed arrays, possibly misalinged.
+            // Create two managed arrays, possibly misaligned.
             var fin = Util.GenerateSignal(size);
             var fout = new double[size];
 
@@ -107,6 +110,9 @@ namespace SharpFFTW.Tests.Double
             // Create test transforms (forward and backward).
             IntPtr plan1 = NativeMethods.fftw_plan_dft_1d(length, min, mout, Direction.Forward, Options.Estimate);
             IntPtr plan2 = NativeMethods.fftw_plan_dft_1d(length, mout, min, Direction.Backward, Options.Estimate);
+
+            NativeMethods.fftw_print_plan(plan1);
+            NativeMethods.fftw_print_plan(plan2);
 
             NativeMethods.fftw_execute(plan1);
 

@@ -82,9 +82,9 @@ namespace SharpFFTW.Double
         /// Sets the maximum time that can be used by the planner.
         /// </summary>
         /// <param name="seconds">Maximum time, in seconds.</param>
-        /// <remarks>This function instructs FFTW to spend at most seconds seconds (approximately) in the planner. 
+        /// <remarks>This function instructs FFTW to spend at most seconds (approximately) in the planner. 
         /// If seconds == -1.0 (the default value), then planning time is unbounded. 
-        /// Otherwise, FFTW plans with a progressively wider range of algorithms until the the given time limit is 
+        /// Otherwise, FFTW plans with a progressively wider range of algorithms until the given time limit is 
         /// reached or the given range of algorithms is explored, returning the best available plan. For example, 
         /// specifying fftw_flags.Patient first plans in Estimate mode, then in Measure mode, then finally (time 
         /// permitting) in Patient. If fftw_flags.Exhaustive is specified instead, the planner will further progress to 

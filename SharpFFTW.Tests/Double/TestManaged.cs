@@ -47,7 +47,7 @@ namespace SharpFFTW.Tests.Double
             // Size is 2 * n because we are dealing with complex numbers.
             int size = 2 * length;
 
-            // Create two managed arrays, possibly misalinged.
+            // Create two managed arrays, possibly misaligned.
             var data = Util.GenerateSignal(size);
 
             // Copy to native memory.
@@ -65,7 +65,7 @@ namespace SharpFFTW.Tests.Double
 
             Array.Clear(data, 0, data.Length);
 
-            // Copy unmanaged output of back-tranform to managed array.
+            // Copy unmanaged output of back-transform to managed array.
             input.CopyTo(data);
 
             // Check and see how we did.
@@ -81,7 +81,7 @@ namespace SharpFFTW.Tests.Double
 
             int n = length;
 
-            // Create two managed arrays, possibly misalinged.
+            // Create two managed arrays, possibly misaligned.
             var data = Util.GenerateSignal(n);
 
             // Copy to native memory.
@@ -99,7 +99,7 @@ namespace SharpFFTW.Tests.Double
 
             Array.Clear(data, 0, n);
 
-            // Copy unmanaged output of back-tranform to managed array.
+            // Copy unmanaged output of back-transform to managed array.
             input.CopyTo(data);
 
             // Check and see how we did.
@@ -115,7 +115,7 @@ namespace SharpFFTW.Tests.Double
 
             int n = length;
 
-            // Create two managed arrays, possibly misalinged.
+            // Create two managed arrays, possibly misaligned.
             var data = Util.GenerateSignal(n);
 
             // Copy to native memory.
@@ -133,7 +133,7 @@ namespace SharpFFTW.Tests.Double
 
             Array.Clear(data, 0, n);
 
-            // Copy unmanaged output of back-tranform to managed array.
+            // Copy unmanaged output of back-transform to managed array.
             input.CopyTo(data);
 
             // Check and see how we did.
