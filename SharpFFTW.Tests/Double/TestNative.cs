@@ -63,9 +63,6 @@ namespace SharpFFTW.Tests.Double
             IntPtr plan1 = NativeMethods.fftw_plan_dft_1d(length, pin, pout, Direction.Forward, Options.Estimate);
             IntPtr plan2 = NativeMethods.fftw_plan_dft_1d(length, pout, pin, Direction.Backward, Options.Estimate);
 
-            NativeMethods.fftw_print_plan(plan1);
-            NativeMethods.fftw_print_plan(plan2);
-
             NativeMethods.fftw_execute(plan1); // Forward.
             NativeMethods.fftw_execute(plan2); // Backward.
 
@@ -110,9 +107,6 @@ namespace SharpFFTW.Tests.Double
             // Create test transforms (forward and backward).
             IntPtr plan1 = NativeMethods.fftw_plan_dft_1d(length, min, mout, Direction.Forward, Options.Estimate);
             IntPtr plan2 = NativeMethods.fftw_plan_dft_1d(length, mout, min, Direction.Backward, Options.Estimate);
-
-            NativeMethods.fftw_print_plan(plan1);
-            NativeMethods.fftw_print_plan(plan2);
 
             NativeMethods.fftw_execute(plan1);
 

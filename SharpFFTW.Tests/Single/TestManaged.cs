@@ -51,15 +51,15 @@ namespace SharpFFTW.Tests.Single
             var data = Util.GenerateSignal(size);
 
             // Copy to native memory.
-            var input = new ComplexArray(data);
-            var output = new ComplexArray(size);
+            using var input = new ComplexArray(data);
+            using var output = new ComplexArray(size);
 
             // Create a managed plan as well.
-            var plan1 = Plan.Create1(length, input, output, Direction.Forward, Options.Estimate);
+            using var plan1 = Plan.Create1(length, input, output, Direction.Forward, Options.Estimate);
 
             plan1.Execute();
 
-            var plan2 = Plan.Create1(length, output, input, Direction.Backward, Options.Estimate);
+            using var plan2 = Plan.Create1(length, output, input, Direction.Backward, Options.Estimate);
 
             plan2.Execute();
 
@@ -85,15 +85,15 @@ namespace SharpFFTW.Tests.Single
             var data = Util.GenerateSignal(n);
 
             // Copy to native memory.
-            var input = new RealArray(data);
-            var output = new ComplexArray(n / 2 + 1);
+            using var input = new RealArray(data);
+            using var output = new ComplexArray(n / 2 + 1);
 
             // Create a managed plan.
-            var plan1 = Plan.Create1(n, input, output, Options.Estimate);
+            using var plan1 = Plan.Create1(n, input, output, Options.Estimate);
 
             plan1.Execute();
 
-            var plan2 = Plan.Create1(n, output, input, Options.Estimate | Options.PreserveInput);
+            using var plan2 = Plan.Create1(n, output, input, Options.Estimate | Options.PreserveInput);
 
             plan2.Execute();
 
@@ -119,15 +119,15 @@ namespace SharpFFTW.Tests.Single
             var data = Util.GenerateSignal(n);
 
             // Copy to native memory.
-            var input = new RealArray(data);
-            var output = new RealArray(n);
+            using var input = new RealArray(data);
+            using var output = new RealArray(n);
 
             // Create a managed plan.
-            var plan1 = Plan.Create1(n, input, output, Transform.R2HC, Options.Estimate);
+            using var plan1 = Plan.Create1(n, input, output, Transform.R2HC, Options.Estimate);
 
             plan1.Execute();
 
-            var plan2 = Plan.Create1(n, output, input, Transform.HC2R, Options.Estimate);
+            using var plan2 = Plan.Create1(n, output, input, Transform.HC2R, Options.Estimate);
 
             plan2.Execute();
 
