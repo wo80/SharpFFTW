@@ -48,16 +48,11 @@ namespace SharpFFTW.Double
         /// <inheritdoc />
         public override void Dispose(bool disposing)
         {
-            if (!hasDisposed)
+            if (Handle != IntPtr.Zero)
             {
-                if (Handle != IntPtr.Zero)
-                {
-                    NativeMethods.fftw_free(Handle);
-                    Handle = IntPtr.Zero;
-                }
+                NativeMethods.fftw_free(Handle);
+                Handle = IntPtr.Zero;
             }
-
-            hasDisposed = disposing;
         }
 
         /// <summary>

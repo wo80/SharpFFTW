@@ -47,16 +47,11 @@ namespace SharpFFTW.Single
         /// <inheritdoc />
         public override void Dispose(bool disposing)
         {
-            if (!hasDisposed)
+            if (Handle != IntPtr.Zero)
             {
-                if (Handle != IntPtr.Zero)
-                {
-                    NativeMethods.fftwf_free(Handle);
-                    Handle = IntPtr.Zero;
-                }
+                NativeMethods.fftwf_free(Handle);
+                Handle = IntPtr.Zero;
             }
-
-            hasDisposed = disposing;
         }
 
         /// <summary>

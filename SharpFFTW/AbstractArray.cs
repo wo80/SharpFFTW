@@ -3,6 +3,7 @@ namespace SharpFFTW
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Threading;
 
     /// <summary>
     /// Abstract base class for native FFTW arrays.
@@ -57,20 +58,33 @@ namespace SharpFFTW
 
         #region IDisposable implementation
 
-        protected bool hasDisposed = false;
+        protected int _disposeCount;
 
         /// <inheritdoc />
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (Interlocked.Increment(ref _disposeCount) == 1)
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with disposing of resources.
+        /// </summary>
+        /// <param name="disposing">Indicates whether the method call comes from a Dispose method
+        /// (value is <c>true</c>) or from a finalizer (value is <c>false</c>).</param>
+        /// <remarks>
+        /// Override this method in derived classes. Unmanaged resources should always be
+        /// released when this method is called. Managed resources may only be disposed
+        /// of if <paramref name="disposing"/> is true.
+        /// </remarks>
         public abstract void Dispose(bool disposing);
 
         ~AbstractArray()
         {
-            Dispose(true);
+            Dispose(false);
         }
 
         #endregion

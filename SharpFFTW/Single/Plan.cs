@@ -46,29 +46,24 @@ namespace SharpFFTW.Single
         {
             // NOTE: this leaks native memory, since the returned char* pointer isn't free'd.
             var p = NativeMethods.fftwf_sprint_plan(handle);
-            
+
             return Marshal.PtrToStringAnsi(p);
         }
 
         /// <inheritdoc />
         public override void Dispose(bool disposing)
         {
-            if (!hasDisposed)
+            if (handle != IntPtr.Zero)
             {
-                if (handle != IntPtr.Zero)
-                {
-                    NativeMethods.fftwf_destroy_plan(handle);
-                    handle = IntPtr.Zero;
-                }
-
-                if (ownsArrays)
-                {
-                    input.Dispose();
-                    output.Dispose();
-                }
+                NativeMethods.fftwf_destroy_plan(handle);
+                handle = IntPtr.Zero;
             }
 
-            hasDisposed = disposing;
+            if (disposing && ownsArrays)
+            {
+                input.Dispose();
+                output.Dispose();
+            }
         }
 
         #region 1D plan creation

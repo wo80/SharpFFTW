@@ -53,22 +53,17 @@ namespace SharpFFTW.Double
         /// <inheritdoc />
         public override void Dispose(bool disposing)
         {
-            if (!hasDisposed)
+            if (handle != IntPtr.Zero)
             {
-                if (handle != IntPtr.Zero)
-                {
-                    NativeMethods.fftw_destroy_plan(handle);
-                    handle = IntPtr.Zero;
-                }
-
-                if (ownsArrays)
-                {
-                    input.Dispose();
-                    output.Dispose();
-                }
+                NativeMethods.fftw_destroy_plan(handle);
+                handle = IntPtr.Zero;
             }
 
-            hasDisposed = disposing;
+            if (disposing && ownsArrays)
+            {
+                input.Dispose();
+                output.Dispose();
+            }
         }
 
         #region 1D plan creation
