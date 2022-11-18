@@ -4,6 +4,8 @@ namespace SharpFFTW.Tests.Single
     using SharpFFTW;
     using SharpFFTW.Single;
     using System;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Test managed FFTW interface (1D).
@@ -24,6 +26,7 @@ namespace SharpFFTW.Tests.Single
                 Example1(length);
                 Example2(length);
                 Example3(length);
+                Example4(2000, true);
             }
             catch (BadImageFormatException)
             {
@@ -138,6 +141,44 @@ namespace SharpFFTW.Tests.Single
 
             // Check and see how we did.
             Util.CheckResults(n, n, data);
+        }
+
+        /// <summary>
+        /// Parallel execution.
+        /// </summary>
+        static void Example4(int tasks, bool print)
+        {
+            Console.WriteLine("Test 4: parallel real to complex transform ... ");
+
+            Parallel.For(0, tasks, (i, state) =>
+            {
+                if (print)
+                {
+                    Console.WriteLine($"{i,5}: current thread = {Thread.CurrentThread.ManagedThreadId}");
+                }
+
+                Example4Core(i % 2 == 0 ? 1024 : 2048);
+            });
+        }
+
+        /// <summary>
+        /// Complex to complex transform.
+        /// </summary>
+        static void Example4Core(int length)
+        {
+            int n = length;
+
+            // Create two managed arrays, possibly misaligned.
+            var data = Util.GenerateSignal(n);
+
+            // Copy to native memory.
+            using var input = new RealArray(data);
+            using var output = new ComplexArray(n / 2 + 1);
+
+            // Create a managed plan.
+            using var plan = Plan.Create1(n, input, output, Options.Estimate);
+
+            plan.Execute();
         }
     }
 }
