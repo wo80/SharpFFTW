@@ -25,10 +25,10 @@ namespace SharpFFTW.Tests.Single
 
             try
             {
-                Example1(length);
-                Example2(length);
-                Example3(length);
-                Example4(2000, true);
+                Util.PrintResult(Example1(length));
+                Util.PrintResult(Example2(length));
+                Util.PrintResult(Example3(length));
+                Util.PrintResult(Example4(2000, false));
             }
             catch (BadImageFormatException)
             {
@@ -45,7 +45,7 @@ namespace SharpFFTW.Tests.Single
         /// <summary>
         /// Complex to complex transform.
         /// </summary>
-        static void Example1(int length)
+        static bool Example1(int length)
         {
             Console.Write("Test 1: complex transform ... ");
 
@@ -74,13 +74,13 @@ namespace SharpFFTW.Tests.Single
             input.CopyTo(data);
 
             // Check and see how we did.
-            Util.PrintResults(length, length, data);
+            return Util.CheckResults(length, length, data);
         }
 
         /// <summary>
         /// Real to complex transform.
         /// </summary>
-        static void Example2(int length)
+        static bool Example2(int length)
         {
             Console.Write("Test 2: real to complex transform ... ");
 
@@ -108,13 +108,13 @@ namespace SharpFFTW.Tests.Single
             input.CopyTo(data);
 
             // Check and see how we did.
-            Util.PrintResults(n, n, data);
+            return Util.CheckResults(n, n, data);
         }
 
         /// <summary>
         /// Real to half-complex transform.
         /// </summary>
-        static void Example3(int length)
+        static bool Example3(int length)
         {
             Console.Write("Test 3: real to half-complex transform ... ");
 
@@ -142,21 +142,21 @@ namespace SharpFFTW.Tests.Single
             input.CopyTo(data);
 
             // Check and see how we did.
-            Util.PrintResults(n, n, data);
+            return Util.CheckResults(n, n, data);
         }
 
         /// <summary>
         /// Parallel execution.
         /// </summary>
-        static void Example4(int tasks, bool print)
+        static bool Example4(int tasks, bool print)
         {
-            Console.WriteLine("Test 4: parallel real to complex transform ... ");
+            Console.Write("Test 4: parallel real to complex transform ... ");
 
             var plans = new ConcurrentDictionary<int, Tuple<RealArray, ComplexArray, Plan, Plan>>();
 
             const int size = 4096;
 
-            Parallel.For(0, tasks, (i, state) =>
+            var result = Parallel.For(0, tasks, (i, state) =>
             {
                 int thread = Thread.CurrentThread.ManagedThreadId;
 
@@ -178,18 +178,32 @@ namespace SharpFFTW.Tests.Single
                 plan1.Execute();
                 plan2.Execute();
 
+                Array.Clear(data, 0, size);
+
+                input.CopyTo(data);
+
+                var success = Util.CheckResults(size, size, data);
+
                 if (print)
                 {
-                    Array.Clear(data, 0, size);
-
-                    input.CopyTo(data);
-
-                    var success = Util.CheckResults(size, size, data);
-
                     Console.WriteLine($"{i,5}: current thread = {thread}, success = {success}");
+                }
 
+                if (!success)
+                {
+                    state.Break();
                 }
             });
+
+            foreach (var (input, output, plan1, plan2) in plans.Values)
+            {
+                plan1.Dispose();
+                plan2.Dispose();
+                input.Dispose();
+                output.Dispose();
+            }
+
+            return result.IsCompleted;
         }
     }
 }

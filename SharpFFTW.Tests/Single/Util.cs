@@ -35,9 +35,9 @@ namespace SharpFFTW.Tests.Single
             return true;
         }
 
-        public static void PrintResults(int n, int scale, float[] data, float eps = 1e-3f)
+        public static void PrintResult(bool succsess)
         {
-            if (CheckResults(n, scale, data, eps))
+            if (succsess)
             {
                 Write("ok", true);
             }

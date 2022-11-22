@@ -35,9 +35,9 @@ namespace SharpFFTW.Tests.Double
             return true;
         }
 
-        public static void PrintResults(int n, int scale, double[] data, double eps = 1e-3)
+        public static void PrintResult(bool succsess)
         {
-            if (CheckResults(n, scale, data, eps))
+            if (succsess)
             {
                 Write("ok", true);
             }

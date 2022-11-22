@@ -22,8 +22,8 @@ namespace SharpFFTW.Tests.Double
 
             try
             {
-                Example1(length);
-                Example2(length);
+                Util.PrintResult(Example1(length));
+                Util.PrintResult(Example2(length));
             }
             catch (BadImageFormatException)
             {
@@ -37,7 +37,7 @@ namespace SharpFFTW.Tests.Double
             Console.WriteLine();
         }
 
-        static void Example1(int length)
+        static bool Example1(int length)
         {
             Console.Write("Test 1: complex transform ... ");
 
@@ -73,16 +73,18 @@ namespace SharpFFTW.Tests.Double
             Marshal.Copy(pin, fin, 0, size);
 
             // Check and see how we did.
-            Util.PrintResults(length, length, fin);
+            bool success = Util.CheckResults(length, length, fin);
 
             // Don't forget to free the memory after finishing.
             NativeMethods.fftw_free(pin);
             NativeMethods.fftw_free(pout);
             NativeMethods.fftw_destroy_plan(plan1);
             NativeMethods.fftw_destroy_plan(plan2);
+
+            return success;
         }
 
-        static void Example2(int length)
+        static bool Example2(int length)
         {
             Console.Write("Test 2: complex transform ... ");
 
@@ -116,7 +118,7 @@ namespace SharpFFTW.Tests.Double
             NativeMethods.fftw_execute(plan2);
 
             // Check and see how we did.
-            Util.PrintResults(length, length, fin);
+            bool success = Util.CheckResults(length, length, fin);
 
             // Don't forget to free the memory after finishing.
             NativeMethods.fftw_destroy_plan(plan1);
@@ -124,6 +126,8 @@ namespace SharpFFTW.Tests.Double
 
             hin.Free();
             hout.Free();
+
+            return success;
         }
     }
 }
