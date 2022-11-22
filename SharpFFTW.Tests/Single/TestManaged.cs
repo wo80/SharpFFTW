@@ -4,6 +4,8 @@ namespace SharpFFTW.Tests.Single
     using SharpFFTW;
     using SharpFFTW.Single;
     using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -72,7 +74,7 @@ namespace SharpFFTW.Tests.Single
             input.CopyTo(data);
 
             // Check and see how we did.
-            Util.CheckResults(length, length, data);
+            Util.PrintResults(length, length, data);
         }
 
         /// <summary>
@@ -106,7 +108,7 @@ namespace SharpFFTW.Tests.Single
             input.CopyTo(data);
 
             // Check and see how we did.
-            Util.CheckResults(n, n, data);
+            Util.PrintResults(n, n, data);
         }
 
         /// <summary>
@@ -140,7 +142,7 @@ namespace SharpFFTW.Tests.Single
             input.CopyTo(data);
 
             // Check and see how we did.
-            Util.CheckResults(n, n, data);
+            Util.PrintResults(n, n, data);
         }
 
         /// <summary>
@@ -150,35 +152,44 @@ namespace SharpFFTW.Tests.Single
         {
             Console.WriteLine("Test 4: parallel real to complex transform ... ");
 
+            var plans = new ConcurrentDictionary<int, Tuple<RealArray, ComplexArray, Plan, Plan>>();
+
+            const int size = 4096;
+
             Parallel.For(0, tasks, (i, state) =>
             {
+                int thread = Thread.CurrentThread.ManagedThreadId;
+
+                var (input, output, plan1, plan2) = plans.GetOrAdd(thread, (i) =>
+                {
+                    var input = new RealArray(size);
+                    var output = new ComplexArray(size / 2 + 1);
+
+                    var plan1 = Plan.Create1(size, input, output, Options.Estimate);
+                    var plan2 = Plan.Create1(size, output, input, Options.Estimate);
+
+                    return new Tuple<RealArray, ComplexArray, Plan, Plan>(input, output, plan1, plan2);
+                });
+
+                var data = Util.GenerateSignal(size);
+
+                input.Set(data);
+
+                plan1.Execute();
+                plan2.Execute();
+
                 if (print)
                 {
-                    Console.WriteLine($"{i,5}: current thread = {Thread.CurrentThread.ManagedThreadId}");
+                    Array.Clear(data, 0, size);
+
+                    input.CopyTo(data);
+
+                    var success = Util.CheckResults(size, size, data);
+
+                    Console.WriteLine($"{i,5}: current thread = {thread}, success = {success}");
+
                 }
-
-                Example4Core(i % 2 == 0 ? 1024 : 2048);
             });
-        }
-
-        /// <summary>
-        /// Complex to complex transform.
-        /// </summary>
-        static void Example4Core(int length)
-        {
-            int n = length;
-
-            // Create two managed arrays, possibly misaligned.
-            var data = Util.GenerateSignal(n);
-
-            // Copy to native memory.
-            using var input = new RealArray(data);
-            using var output = new ComplexArray(n / 2 + 1);
-
-            // Create a managed plan.
-            using var plan = Plan.Create1(n, input, output, Options.Estimate);
-
-            plan.Execute();
         }
     }
 }

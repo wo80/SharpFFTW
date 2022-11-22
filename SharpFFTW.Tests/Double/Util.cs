@@ -16,7 +16,7 @@ namespace SharpFFTW.Tests.Double
             return data;
         }
 
-        public static void CheckResults(int n, int scale, double[] data, double eps = 1e-3)
+        public static bool CheckResults(int n, int scale, double[] data, double eps = 1e-3)
         {
             for (int i = 0; i < n; i++)
             {
@@ -26,14 +26,25 @@ namespace SharpFFTW.Tests.Double
                 // Check against original value.
                 if (double.IsNaN(result) || Math.Abs(result - (i % 50)) > eps)
                 {
-                    Write("failed", false);
-                    return;
+                    return false;
                 }
             }
 
             // Yeah, alright. So this was kind of a trivial test and of course
             // it's gonna work. But still.
-            Write("ok", true);
+            return true;
+        }
+
+        public static void PrintResults(int n, int scale, double[] data, double eps = 1e-3)
+        {
+            if (CheckResults(n, scale, data, eps))
+            {
+                Write("ok", true);
+            }
+            else
+            {
+                Write("failed", false);
+            }
         }
 
         public static void Write(string message, bool ok)
