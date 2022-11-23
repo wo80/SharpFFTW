@@ -55,8 +55,10 @@ namespace SharpFFTW.Double
         {
             if (handle != IntPtr.Zero)
             {
+                mutex.WaitOne();
                 NativeMethods.fftw_destroy_plan(handle);
                 handle = IntPtr.Zero;
+                mutex.ReleaseMutex();
             }
 
             if (disposing && ownsArrays)
