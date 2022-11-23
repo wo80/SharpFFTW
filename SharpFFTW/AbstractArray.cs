@@ -2,12 +2,12 @@
 namespace SharpFFTW
 {
     using System;
-    using System.Runtime.InteropServices;
     using System.Threading;
 
     /// <summary>
     /// Abstract base class for native FFTW arrays.
     /// </summary>
+    /// <typeparam name="T">Supported types are <see cref="float"/> and <see cref="double"/>.</typeparam>
     public abstract class AbstractArray<T> : IDisposable
         where T : struct, IEquatable<T>, IFormattable
     {
@@ -25,18 +25,24 @@ namespace SharpFFTW
         private T[] data;
 
         /// <summary>
-        /// Creates a new array of complex numbers.
+        /// Creates a new <see cref="AbstractArray{T}"/>.
         /// </summary>
         /// <param name="length">Logical length of the array.</param>
         public AbstractArray(int length)
         {
-            this.Length = length;
+            Length = length;
         }
 
         /// <summary>
-        /// Copy contents of given array to native memory.
+        /// Copy <see cref="Length"/> items from the given <paramref name="source"/> array
+        /// to native memory.
         /// </summary>
         /// <param name="source">The data to copy.</param>
+        /// <remarks>
+        /// For real valued data the <paramref name="source"/> array length must be at
+        /// least <see cref="Length"/>,  for complex valued data the length must be at
+        /// least <c>2 * Length</c>.
+        /// </remarks>
         public abstract void Set(T[] source);
 
         /// <summary>
