@@ -1,11 +1,11 @@
 ﻿
 namespace SharpFFTW.Tests.Single
 {
+    using NUnit.Framework;
     using SharpFFTW;
     using SharpFFTW.Single;
     using System;
     using System.Collections.Concurrent;
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -14,38 +14,21 @@ namespace SharpFFTW.Tests.Single
     /// </summary>
     public class TestManaged
     {
-        /// <summary>
-        /// Run examples.
-        /// </summary>
-        /// <param name="n">Logical size of the transform.</param>
-        public static void Run(int length)
+        [Test]
+        public void Test()
         {
-            Console.WriteLine("Starting managed test with FFT size = " + length + " (Type: single)");
-            Console.WriteLine();
+            const int SIZE = 8192;
 
-            try
-            {
-                Util.PrintResult(Example1(length));
-                Util.PrintResult(Example2(length));
-                Util.PrintResult(Example3(length));
-                Util.PrintResult(Example4(2000, false));
-            }
-            catch (BadImageFormatException)
-            {
-                Util.Write("Couldn't load native FFTW image (Type: single)", false);
-            }
-            catch (Exception e)
-            {
-                Util.Write(e.Message, false);
-            }
-
-            Console.WriteLine();
+            Assert.True(Example1(SIZE));
+            Assert.True(Example2(SIZE));
+            Assert.True(Example3(SIZE));
+            Assert.True(Example4(2000, false));
         }
 
         /// <summary>
         /// Complex to complex transform.
         /// </summary>
-        static bool Example1(int length)
+        bool Example1(int length)
         {
             Console.Write("Test 1: complex transform ... ");
 
@@ -80,7 +63,7 @@ namespace SharpFFTW.Tests.Single
         /// <summary>
         /// Real to complex transform.
         /// </summary>
-        static bool Example2(int length)
+        bool Example2(int length)
         {
             Console.Write("Test 2: real to complex transform ... ");
 
@@ -114,7 +97,7 @@ namespace SharpFFTW.Tests.Single
         /// <summary>
         /// Real to half-complex transform.
         /// </summary>
-        static bool Example3(int length)
+        bool Example3(int length)
         {
             Console.Write("Test 3: real to half-complex transform ... ");
 
@@ -148,7 +131,7 @@ namespace SharpFFTW.Tests.Single
         /// <summary>
         /// Parallel execution.
         /// </summary>
-        static bool Example4(int tasks, bool print)
+        bool Example4(int tasks, bool print)
         {
             Console.Write("Test 4: parallel real to complex transform ... ");
 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28917.181
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpFFTW.Tests", "SharpFFTW.Tests\SharpFFTW.Tests.csproj", "{DA20704B-23A7-41A4-B4E2-174A0FED5F3D}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -33,6 +33,7 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DA20704B-23A7-41A4-B4E2-174A0FED5F3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DA20704B-23A7-41A4-B4E2-174A0FED5F3D}.Debug|x64.ActiveCfg = Debug|x64
+		{DA20704B-23A7-41A4-B4E2-174A0FED5F3D}.Debug|x64.Build.0 = Debug|x64
 		{DA20704B-23A7-41A4-B4E2-174A0FED5F3D}.Release|Any CPU.ActiveCfg = Release|x86
 		{DA20704B-23A7-41A4-B4E2-174A0FED5F3D}.Release|x64.ActiveCfg = Release|x64
 		{BEA875B8-E28A-49C5-8E7E-6512DA65F7E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
