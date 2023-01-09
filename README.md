@@ -8,7 +8,7 @@ A lightweight C# wrapper for native FFTW.
 * Basic managed wrappers for FFTW plans and unmanaged arrays
 * Test program that demonstrates basic functionality
 
-The official website https://www.fftw.org/ does not provide up-to-date windows binaries (last checked January 2023). You can find FFTW windows binaries on [conda](https://anaconda.org/conda-forge/fftw/files) or my personal [package site](http://wo80.bplaced.net/packages/#package:fftw).
+The binaries provided for download on the official website https://www.fftw.org/install/windows.html are outdated (version 3.3.5, last checked January 2023). If you are looking for up-to-date FFTW windows binaries, try [conda](https://anaconda.org/conda-forge/fftw/files) or my personal [package site](http://wo80.bplaced.net/packages/#package:fftw).
 
 ## FFT benchmark
 
