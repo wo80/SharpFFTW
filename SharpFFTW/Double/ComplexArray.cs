@@ -22,7 +22,7 @@ namespace SharpFFTW.Double
         public ComplexArray(int length)
             : base(length)
         {
-            Handle = NativeMethods.fftw_malloc(this.Length * SIZE);
+            Handle = NativeMethods.fftw_malloc(Length * SIZE);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace SharpFFTW.Double
         public ComplexArray(double[] data)
             : this(data.Length / 2)
         {
-            this.Set(data);
+            Set(data);
         }
 
         /// <summary>
@@ -42,22 +42,17 @@ namespace SharpFFTW.Double
         public ComplexArray(Complex[] data)
             : this(data.Length)
         {
-            this.Set(data);
+            Set(data);
         }
 
         /// <inheritdoc />
         public override void Dispose(bool disposing)
         {
-            if (!hasDisposed)
+            if (Handle != IntPtr.Zero)
             {
-                if (Handle != IntPtr.Zero)
-                {
-                    NativeMethods.fftw_free(Handle);
-                    Handle = IntPtr.Zero;
-                }
+                NativeMethods.fftw_free(Handle);
+                Handle = IntPtr.Zero;
             }
-
-            hasDisposed = disposing;
         }
 
         /// <summary>
@@ -68,9 +63,9 @@ namespace SharpFFTW.Double
         {
             int size = 2 * Length;
 
-            if (source.Length != size)
+            if (source.Length < size)
             {
-                throw new ArgumentException("Array length mismatch.");
+                throw new ArgumentException("Array length mismatch.", nameof(source));
             }
 
             Marshal.Copy(source, 0, Handle, size);
@@ -82,9 +77,9 @@ namespace SharpFFTW.Double
         /// <param name="source">Array of complex numbers.</param>
         public void Set(Complex[] source)
         {
-            if (source.Length != this.Length)
+            if (source.Length != Length)
             {
-                throw new ArgumentException("Array length mismatch.");
+                throw new ArgumentException("Array length mismatch.", nameof(source));
             }
 
             var temp = GetTemporaryData(2 * Length);
@@ -95,19 +90,17 @@ namespace SharpFFTW.Double
                 temp[2 * i + 1] = source[i].Imaginary;
             }
 
-            Marshal.Copy(temp, 0, Handle, this.Length * 2);
+            Marshal.Copy(temp, 0, Handle, Length * 2);
         }
 
-        /// <summary>
-        /// Set the data to zeros.
-        /// </summary>
+        /// <inheritdoc />
         public override void Clear()
         {
             var temp = GetTemporaryData(2 * Length);
 
             Array.Clear(temp, 0, temp.Length);
 
-            Marshal.Copy(temp, 0, Handle, this.Length * 2);
+            Marshal.Copy(temp, 0, Handle, Length * 2);
         }
 
         /// <summary>
@@ -116,9 +109,9 @@ namespace SharpFFTW.Double
         /// <param name="target">Array of complex numbers.</param>
         public void CopyTo(Complex[] target)
         {
-            if (target.Length != this.Length)
+            if (target.Length < Length)
             {
-                throw new Exception();
+                throw new ArgumentException("Array length mismatch.", nameof(target));
             }
 
             var temp = GetTemporaryData(2 * Length);
@@ -141,7 +134,7 @@ namespace SharpFFTW.Double
 
             if (target.Length < size)
             {
-                throw new Exception();
+                throw new ArgumentException("Array length mismatch.", nameof(target));
             }
 
             Marshal.Copy(Handle, target, 0, size);

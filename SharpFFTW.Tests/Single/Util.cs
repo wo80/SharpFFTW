@@ -16,7 +16,7 @@ namespace SharpFFTW.Tests.Single
             return data;
         }
 
-        public static void CheckResults(int n, int scale, float[] data, double eps = 1e-3)
+        public static bool CheckResults(int n, int scale, float[] data, float eps = 1e-3f)
         {
             for (int i = 0; i < n; i++)
             {
@@ -24,16 +24,27 @@ namespace SharpFFTW.Tests.Single
                 float result = data[i] / scale;
 
                 // Check against original value.
-                if (double.IsNaN(result) || Math.Abs(result - (i % 50)) > eps)
+                if (float.IsNaN(result) || Math.Abs(result - (i % 50)) > eps)
                 {
-                    Write("failed", false);
-                    return;
+                    return false;
                 }
             }
 
             // Yeah, alright. So this was kind of a trivial test and of course
             // it's gonna work. But still.
-            Write("ok", true);
+            return true;
+        }
+
+        public static void PrintResult(bool succsess)
+        {
+            if (succsess)
+            {
+                Write("ok", true);
+            }
+            else
+            {
+                Write("failed", false);
+            }
         }
 
         public static void Write(string message, bool ok)

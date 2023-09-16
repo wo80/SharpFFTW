@@ -1,6 +1,7 @@
 ﻿
 namespace SharpFFTW.Tests.Double
 {
+    using NUnit.Framework;
     using SharpFFTW;
     using SharpFFTW.Double;
     using System;
@@ -11,33 +12,16 @@ namespace SharpFFTW.Tests.Double
     /// </summary>
     public class TestNative
     {
-        /// <summary>
-        /// Run examples.
-        /// </summary>
-        /// <param name="length">Logical size of the transform.</param>
-        public static void Run(int length)
+        [Test]
+        public void Test()
         {
-            Console.WriteLine("Starting native test with FFT size = " + length + " (Type: double)");
-            Console.WriteLine();
+            const int SIZE = 8192;
 
-            try
-            {
-                Example1(length);
-                Example2(length);
-            }
-            catch (BadImageFormatException)
-            {
-                Util.Write("Couldn't load native FFTW image (Type: double)", false);
-            }
-            catch (Exception e)
-            {
-                Util.Write(e.Message, false);
-            }
-
-            Console.WriteLine();
+            Assert.True(Example1(SIZE));
+            Assert.True(Example2(SIZE));
         }
 
-        static void Example1(int length)
+        bool Example1(int length)
         {
             Console.Write("Test 1: complex transform ... ");
 
@@ -73,16 +57,18 @@ namespace SharpFFTW.Tests.Double
             Marshal.Copy(pin, fin, 0, size);
 
             // Check and see how we did.
-            Util.CheckResults(length, length, fin);
+            bool success = Util.CheckResults(length, length, fin);
 
             // Don't forget to free the memory after finishing.
             NativeMethods.fftw_free(pin);
             NativeMethods.fftw_free(pout);
             NativeMethods.fftw_destroy_plan(plan1);
             NativeMethods.fftw_destroy_plan(plan2);
+
+            return success;
         }
 
-        static void Example2(int length)
+        bool Example2(int length)
         {
             Console.Write("Test 2: complex transform ... ");
 
@@ -116,7 +102,7 @@ namespace SharpFFTW.Tests.Double
             NativeMethods.fftw_execute(plan2);
 
             // Check and see how we did.
-            Util.CheckResults(length, length, fin);
+            bool success = Util.CheckResults(length, length, fin);
 
             // Don't forget to free the memory after finishing.
             NativeMethods.fftw_destroy_plan(plan1);
@@ -124,6 +110,8 @@ namespace SharpFFTW.Tests.Double
 
             hin.Free();
             hout.Free();
+
+            return success;
         }
     }
 }
