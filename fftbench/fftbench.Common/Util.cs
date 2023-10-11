@@ -12,9 +12,10 @@ namespace fftbench
 
             tests.Add(new TestAccord() { Enabled = true });
             tests.Add(new TestAForge() { Enabled = true });
-            tests.Add(new TestMathNet() { Enabled = true });
+            tests.Add(new TestCavern() { Enabled = true });
             tests.Add(new TestExocortex() { Enabled = true });
             tests.Add(new TestLomont() { Enabled = true });
+            tests.Add(new TestMathNet() { Enabled = true });
             tests.Add(new TestNAudio() { Enabled = true });
             tests.Add(new TestNWaves() { Enabled = true });
             tests.Add(new TestExocortexReal() { Enabled = true });
